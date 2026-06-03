@@ -1,0 +1,1432 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapor SLB Negeri Handayani</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&amp;family=Source+Sans+3:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { font-family: 'Source Sans 3', sans-serif; margin: 0; padding: 0; height: 100%; }
+    .font-heading { font-family: 'Merriweather', serif; }
+    .hidden { display: none !important; }
+    #login-page { font-family: Cambria, serif; }
+    #main-page { font-family: 'Times New Roman', serif; display: none; }
+    #main-page:not(.hidden) { display: flex; }
+
+    @keyframes float-particle { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), inset 0 0 20px rgba(59, 130, 246, 0.1); } 50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.8), inset 0 0 30px rgba(59, 130, 246, 0.2); } }
+    @keyframes float-up { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+    @keyframes rotate-gradient { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .particle { position: fixed; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 1; }
+    .particle-1 { background: rgba(59, 130, 246, 0.6); left: 10%; animation: float-particle 15s infinite linear; }
+    .particle-2 { background: rgba(16, 185, 129, 0.5); left: 30%; animation: float-particle 18s infinite linear 2s; }
+    .particle-3 { background: rgba(245, 158, 11, 0.6); left: 50%; animation: float-particle 20s infinite linear 4s; }
+    .particle-4 { background: rgba(236, 72, 153, 0.5); left: 70%; animation: float-particle 17s infinite linear 1s; }
+    .particle-5 { background: rgba(139, 92, 246, 0.6); left: 90%; animation: float-particle 19s infinite linear 3s; }
+
+    .login-split-container { display: flex; position: relative; z-index: 10; flex: 1; }
+    .login-left-section { flex: 1; background: linear-gradient(135deg, #0f2438 0%, #1a3a5c 40%, #0d1b2a 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
+    .login-left-section::before { content: ''; position: absolute; top: -50%; right: -50%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%); border-radius: 50%; animation: rotate-gradient 20s linear infinite; }
+    .login-left-content { position: relative; z-index: 1; text-align: center; max-width: 500px; }
+    .login-left-content img { width: 140px; height: 140px; margin: 0 auto 2rem auto; display: block; filter: drop-shadow(0 20px 40px rgba(59, 130, 246, 0.4)); animation: float-up 3.5s ease-in-out infinite; border-radius: 50%; padding: 8px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2)); }
+    .login-left-content h1 { font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 40%, #f59e0b 70%, #d97706 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0 0 0.8rem 0; letter-spacing: 1px; line-height: 1.2; text-transform: uppercase; white-space: nowrap; }
+    .login-left-content p { font-size: 1.1rem; color: #cbd5e1; margin: 0.7rem 0; line-height: 1.6; font-weight: 300; }
+    .login-left-content .subtitle { font-size: 1.25rem; background: linear-gradient(135deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; margin: 1.5rem 0 1rem 0; letter-spacing: 0.8px; text-transform: uppercase; }
+    .login-left-content .description { font-size: 1rem; color: #94a3b8; margin-top: 1rem; line-height: 1.8; }
+    .header-accent { display: inline-block; width: 120px; height: 4px; background: linear-gradient(90deg, transparent 0%, #3b82f6 20%, #10b981 50%, #f59e0b 80%, transparent 100%); border-radius: 2px; margin: 1.5rem 0; animation: pulse-glow 2s ease-in-out infinite; }
+    .login-badge { display: inline-block; background: rgba(59, 130, 246, 0.15); border: 1.5px solid rgba(59, 130, 246, 0.4); padding: 1rem 2rem; border-radius: 50px; color: #3b82f6; font-size: 0.95rem; font-weight: 700; margin-top: 2rem; backdrop-filter: blur(10px); }
+
+    .login-right-section { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 50%, #f0fdf4 100%); position: relative; overflow: hidden; }
+    .login-form-card { width: 100%; max-width: 380px; background: #ffffff; border-radius: 1.5rem; padding: 1.8rem 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); animation: slide-up 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; z-index: 2; }
+    .login-form-header { margin-bottom: 2rem; }
+    .login-form-header h2 { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, #0f2438, #1a3a5c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin: 0 0 0.4rem 0; }
+    .login-form-header p { font-size: 0.85rem; color: #64748b; margin: 0; font-weight: 500; }
+    .login-form-group { margin-bottom: 1rem; }
+    .login-form-group label { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; font-weight: 700; background: linear-gradient(135deg, #0f2438, #1a3a5c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
+    .login-form-group label i { width: 16px; height: 16px; color: #3b82f6; flex-shrink: 0; }
+    .login-form-group input { width: 100%; padding: 0.75rem 1rem; border: 2px solid #e0e7ff; border-radius: 0.75rem; font-size: 0.9rem; color: #1a3a5c; background: #ffffff; transition: all 0.3s; font-weight: 500; }
+    .login-form-group input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+    .login-submit-btn { width: 100%; padding: 0.85rem 1rem; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%); color: white; border: none; border-radius: 0.75rem; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-top: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35); text-transform: uppercase; letter-spacing: 0.4px; }
+    .login-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(59, 130, 246, 0.45); }
+    .login-error { background: linear-gradient(135deg, #fee2e2, #fecaca); border: 1.5px solid #fca5a5; color: #7f1d1d; padding: 0.75rem 1rem; border-radius: 0.75rem; font-size: 0.85rem; margin-top: 0.8rem; font-weight: 600; }
+    .login-footer-split { margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1.5px solid #e0e7ff; text-align: center; }
+    .login-footer-split p { font-size: 0.75rem; color: #64748b; margin: 0.25rem 0; font-weight: 500; }
+    .login-footer-split a { color: #3b82f6; text-decoration: none; font-weight: 700; }
+
+    .footer-main { background: linear-gradient(135deg, rgba(15, 36, 56, 0.95) 0%, rgba(26, 58, 92, 0.95) 50%, rgba(22, 45, 71, 0.95) 100%); border-top: 3px solid #3b82f6; padding: 1.5rem 2rem; position: relative; overflow: hidden; }
+    .footer-content { max-width: 100%; margin: 0 auto; position: relative; z-index: 1; display: flex; justify-content: center; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+    .footer-section { padding: 1.2rem 0; flex: 0 1 auto; }
+    .footer-section h3 { font-size: 0.9rem; font-weight: 800; color: #f59e0b; margin: 0 0 0.7rem 0; display: flex; align-items: center; gap: 0.6rem; text-transform: uppercase; letter-spacing: 0.8px; }
+    .footer-section h3 i { width: 20px; height: 20px; color: #10b981; }
+    .footer-section p { font-size: 0.85rem; color: #cbd5e1; margin: 0.4rem 0; line-height: 1.6; font-weight: 500; }
+    .footer-section p strong { color: #e0f2fe; font-weight: 700; }
+    .footer-divider { display: block; height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.4) 15%, #10b981 35%, #06b6d4 50%, #f59e0b 65%, rgba(245, 158, 11, 0.4) 85%, transparent 100%); margin-top: 1.2rem; }
+
+    .tab-btn { padding: 0.75rem 1.5rem; font-weight: 700; border-radius: 0.5rem 0.5rem 0 0; cursor: pointer; transition: all 0.3s; border: none; font-size: 0.9rem; }
+    .tab-btn.active { background: white; color: #1a3a5c; box-shadow: 0 -2px 8px rgba(0,0,0,0.1); }
+    .tab-btn:not(.active) { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
+    .tab-btn:not(.active):hover { background: rgba(255,255,255,0.4); color: white; }
+
+    @media (max-width: 768px) {
+      .login-split-container { flex-direction: column; }
+      .login-left-section { padding: 2rem 1.5rem; }
+      .login-left-content h1 { font-size: 1.8rem; }
+      .login-left-content img { width: 100px; height: 100px; }
+      .login-right-section { padding: 1.2rem; }
+      .login-form-card { padding: 1.5rem 1.2rem; max-width: 100%; }
+      .tab-btn { padding: 0.5rem 0.8rem; font-size: 0.8rem; }
+    }
+    @media print { .no-print { display: none !important; } }
+  </style>
+  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
+ <script src="/_sdk/telemetry_sdk.js"></script></head>
+ <body data-template-id="__page-root" class="h-full">
+  <div id="app" class="w-full">
+   <div class="particle particle-1"></div>
+   <div class="particle particle-2"></div>
+   <div class="particle particle-3"></div>
+   <div class="particle particle-4"></div>
+   <div class="particle particle-5"></div><!-- LOGIN PAGE -->
+   <div id="login-page" class="flex flex-col relative" style="background: linear-gradient(135deg, rgba(15, 36, 56, 0.95) 0%, rgba(26, 58, 92, 0.95) 50%, rgba(22, 45, 71, 0.95) 100%); min-height: calc(100 * min(var(--vh, 1vh), 1vh)); display: flex; flex-direction: column;">
+    <div class="login-split-container flex flex-1">
+     <div class="login-left-section">
+      <div class="login-left-content"><img data-template-id="login-logo" class="canva-image" loading="lazy">
+       <h1>SLB NEGERI HANDAYANI</h1>
+       <div class="header-accent"></div>
+       <p class="subtitle">Sistem Informasi Raport Digital</p>
+       <p class="description">Platform manajemen nilai dan raport siswa yang modern dan terintegrasi</p>
+       <div class="login-badge">
+        ✓ Inovatif • Terintegrasi • Efisien
+       </div>
+      </div>
+     </div>
+     <div class="login-right-section flex flex-col flex-1">
+      <div class="login-form-card flex-shrink-0">
+       <div class="login-form-header">
+        <h2>Masuk ke Sistem</h2>
+        <p>Akses raport digital dengan kredensial Anda</p>
+       </div>
+       <form id="login-form" onsubmit="return false;">
+        <div class="login-form-group"><label for="login-nama"><i data-lucide="building-2"></i> Nama Sekolah</label> <input type="text" id="login-nama" required placeholder="Masukkan nama sekolah">
+        </div>
+        <div class="login-form-group"><label for="login-nisn"><i data-lucide="key"></i> Kode Akses</label> <input type="password" id="login-nisn" required placeholder="Masukkan kode akses">
+        </div><button type="submit" class="login-submit-btn"><i data-lucide="log-in"></i> <span>Masuk ke Sistem</span></button>
+        <div id="login-error" class="login-error hidden"></div>
+       </form>
+      </div>
+      <div class="login-footer-split mt-auto flex-shrink-0">
+       <p>Lupa kode akses? <a href="https://wa.me/085171144822" target="_blank" rel="noopener noreferrer">Hubungi admin</a></p>
+       <p style="margin-top:0.75rem;">© 2026 SLB Negeri Handayani • Sistem Raport Digital</p>
+      </div>
+     </div>
+    </div>
+    <footer class="footer-main" style="flex-shrink: 0;">
+     <div class="footer-content">
+      <div class="footer-section">
+       <h3><i data-lucide="phone"></i> Hubungi Kami</h3>
+       <p><strong>SLB Negeri Handayani</strong></p>
+       <p>Jl. Raya Karangtengah No. 126 Cibadak, Sukabumi</p>
+      </div>
+      <div class="footer-section" style="text-align:center;">
+       <h3 style="justify-content:center;"><i data-lucide="copyright"></i> Copyright</h3>
+       <p>© 2026 SLB Negeri Handayani</p>
+       <p>Semua Hak Dilindungi</p>
+      </div>
+      <div class="footer-section" style="text-align:right;">
+       <h3 style="justify-content:flex-end;"><i data-lucide="share-2"></i> Ikuti Kami</h3>
+       <div class="flex gap-2" style="justify-content:flex-end;">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook" style="color:#1877F2;">
+         <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+         </svg></a><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram" style="color:#E1306C;">
+         <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+         </svg></a><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube" style="color:#FF0000;">
+         <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+         </svg></a>
+       </div>
+      </div>
+     </div>
+     <div class="footer-divider"></div>
+    </footer>
+   </div><!-- MAIN PAGE -->
+   <div id="main-page" class="min-h-full hidden w-full relative flex flex-col"><img data-template-id="main-bg-image" class="canva-image fixed inset-0 w-full h-full object-cover -z-10" loading="lazy">
+    <div style="position: fixed; inset: 0; background: linear-gradient(135deg, rgba(26, 58, 92, 0.9) 0%, rgba(45, 90, 140, 0.9) 50%, rgba(26, 58, 92, 0.9) 100%); pointer-events: none; z-index: -5;"></div><!-- Header -->
+    <div class="bg-gradient-to-r from-[#0f2438] via-[#1a3a5c] to-[#16384f] border-b-4 border-[#3b82f6] shadow-lg sticky top-0 z-40">
+     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4"><img data-template-id="header-logo" class="canva-image w-16 h-16 object-cover rounded-lg shadow-md flex-shrink-0" loading="lazy">
+       <div>
+        <h1 class="font-heading text-3xl font-bold text-white mb-1">LAPORAN HASIL BELAJAR SISWA</h1>
+        <p class="text-sm text-blue-200">SLB Negeri Handayani • Tahun Ajaran 2025/2026</p>
+       </div>
+      </div><button id="header-logout-btn" type="button" class="flex items-center gap-2 px-4 py-2 rounded-lg transition transform hover:scale-105" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(249, 115, 22, 0.9)); color: white; border: 1.5px solid rgba(255, 255, 255, 0.3);"><i data-lucide="arrow-right-from-line" style="width:18px;height:18px;"></i> <span class="text-sm font-semibold">Keluar</span></button>
+     </div><!-- Tab Navigation -->
+     <div class="max-w-5xl mx-auto px-6 flex gap-1 pb-0"><button type="button" class="tab-btn active" data-tab="akademik"><i data-lucide="book-open" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>Kelas Akademik</button> <button type="button" class="tab-btn" data-tab="adl"><i data-lucide="hand-helping" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>Kelas ADL</button> <button type="button" class="tab-btn" data-tab="rehab"><i data-lucide="heart-pulse" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>Kelas Rehab</button>
+     </div>
+    </div>
+    <div style="position: relative; z-index: 10; min-height: calc(100 * min(var(--vh, 1vh), 1vh)); display: flex; flex-direction: column;">
+     <div class="p-6 flex-1 relative z-10">
+      <div class="max-w-5xl mx-auto">
+       <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+        <form id="rapor-form" class="space-y-3"><!-- Identitas -->
+         <div class="mb-8 pt-6 border-t-2 border-[#e2e8f0]">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+           <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#1a3a5c] flex items-start gap-3"><span class="w-40">Nama Sekolah</span><span>:</span></label>
+            <p class="text-sm text-[#4a6d8c] px-3 py-2">SLB Negeri Handayani</p>
+           </div>
+           <div class="space-y-2">
+            <label for="form-kelas" class="block text-sm font-semibold text-[#1a3a5c] flex items-start gap-3"><span class="w-20">Kelas</span><span>:</span></label><input type="text" id="form-kelas" required placeholder="Isi kelas" class="w-full px-3 py-2 border border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+           <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#1a3a5c] flex items-start gap-3"><span class="w-40">Alamat</span><span>:</span></label>
+            <p class="text-sm text-[#4a6d8c] px-3 py-2">Jl. Raya Karangtengah No. 126 Cibadak</p>
+           </div>
+           <div class="space-y-2">
+            <label for="form-semester" class="block text-sm font-semibold text-[#1a3a5c] flex items-start gap-3"><span class="w-20">Semester</span><span>:</span></label><select id="form-semester" required class="w-full px-3 py-2 border border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none"><option value="">Pilih Semester</option><option>1 (Ganjil)</option><option>2 (Genap)</option></select>
+           </div>
+           <div class="space-y-2">
+            <label for="form-nama" class="block text-sm font-semibold text-[#1a3a5c] flex items-start gap-3"><span class="w-40">Nama Siswa</span><span>:</span></label><input type="text" id="form-nama" required placeholder="Isi nama siswa" class="w-full px-3 py-2 border border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+           <div class="space-y-2">
+            <label for="form-nisn" class="block text-sm font-semibold text-[#1a3a5c] flex items-start gap-3"><span class="w-20">NISN</span><span>:</span></label><input type="text" id="form-nisn" required placeholder="Masukkan NISN siswa" class="w-full px-3 py-2 border border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+          </div>
+         </div><!-- A. Nilai (Akademik & ADL) -->
+         <div id="section-a-nilai" class="mt-10 pt-8 border-t-2 border-[#e2e8f0]">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-a-title">A. NILAI DAN CAPAIAN KOMPETENSI</span></h3>
+          <div class="overflow-x-auto">
+           <table class="w-full border-collapse text-sm">
+            <thead>
+             <tr class="bg-[#1a3a5c] text-white">
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">MATA PELAJARAN</th>
+              <th class="border border-[#1a3a5c] px-3 py-3 text-center font-semibold min-w-[120px]">NILAI AKHIR</th>
+              <th class="border border-[#1a3a5c] px-3 py-3 text-center font-semibold min-w-[150px]">CAPAIAN KOMPETENSI</th>
+             </tr>
+            </thead>
+            <tbody id="nilai-tbody"></tbody>
+           </table>
+          </div>
+         </div><!-- B. PPI (Rehab) -->
+         <div id="section-b-ppi" class="mt-10 pt-8 border-t-2 border-[#e2e8f0] hidden">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-b-title">A. DESKRIPSI PROGRAM PEMBELAJARAN INDIVIDUAL</span></h3>
+          <div class="overflow-x-auto">
+           <table class="w-full border-collapse text-sm">
+            <thead>
+             <tr class="bg-[#1a3a5c] text-white">
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold min-w-[180px]">ASPEK</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">DESKRIPSI</th>
+             </tr>
+            </thead>
+            <tbody>
+             <tr class="hover:bg-[#f9fafb]">
+              <td class="border border-[#1a3a5c] px-3 py-2 font-semibold text-[#1a3a5c]">Karakteristik</td>
+              <td class="border border-[#1a3a5c] px-3 py-2"><textarea class="ppi-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-field="ppi_karakteristik" placeholder="Jelaskan karakteristik siswa" rows="3"></textarea></td>
+             </tr>
+             <tr class="hover:bg-[#f9fafb]">
+              <td class="border border-[#1a3a5c] px-3 py-2 font-semibold text-[#1a3a5c]">Kekuatan/Potensi</td>
+              <td class="border border-[#1a3a5c] px-3 py-2"><textarea class="ppi-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-field="ppi_kekuatan" placeholder="Jelaskan kekuatan dan potensi siswa" rows="3"></textarea></td>
+             </tr>
+             <tr class="hover:bg-[#f9fafb]">
+              <td class="border border-[#1a3a5c] px-3 py-2 font-semibold text-[#1a3a5c]">Hambatan/Kebutuhan</td>
+              <td class="border border-[#1a3a5c] px-3 py-2"><textarea class="ppi-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-field="ppi_hambatan" placeholder="Jelaskan hambatan dan kebutuhan siswa" rows="3"></textarea></td>
+             </tr>
+             <tr class="hover:bg-[#f9fafb]">
+              <td class="border border-[#1a3a5c] px-3 py-2 font-semibold text-[#1a3a5c]">Target Pembelajaran</td>
+              <td class="border border-[#1a3a5c] px-3 py-2"><textarea class="ppi-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-field="ppi_target" placeholder="Jelaskan target pembelajaran siswa" rows="3"></textarea></td>
+             </tr>
+            </tbody>
+           </table>
+          </div>
+         </div><!-- C. LKP (Rehab) -->
+         <div id="section-c-lkp" class="mt-10 pt-8 border-t-2 border-[#e2e8f0] hidden">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-c-title">B. LAPORAN KETERCAPAIAN PEMBELAJARAN</span></h3>
+          <div class="overflow-x-auto">
+           <table class="w-full border-collapse text-sm">
+            <thead>
+             <tr class="bg-[#1a3a5c] text-white">
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">ASPEK / KOMPETENSI</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">TARGET</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">KETERCAPAIAN</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">DESKRIPSI PERKEMBANGAN</th>
+             </tr>
+            </thead>
+            <tbody id="lkp-tbody"></tbody>
+           </table>
+          </div>
+         </div><!-- D. Perkembangan (Rehab) -->
+         <div id="section-d-perkembangan" class="mt-10 pt-8 border-t-2 border-[#e2e8f0] hidden">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-d-title">C. PERKEMBANGAN PEMBELAJARAN</span></h3>
+          <div class="overflow-x-auto">
+           <table class="w-full border-collapse text-sm">
+            <thead>
+             <tr class="bg-[#1a3a5c] text-white">
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">ASPEK / KOMPETENSI</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">AWAL SEMESTER</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">TENGAH SEMESTER</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">AKHIR SEMESTER</th>
+             </tr>
+            </thead>
+            <tbody id="perkembangan-tbody"></tbody>
+           </table>
+          </div>
+         </div><!-- E. Ekstrakurikuler (Akademik & ADL) -->
+         <div id="section-e-ekstrakurikuler" class="mt-10 pt-8 border-t-2 border-[#e2e8f0]">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-e-title">B. EKSTRAKURIKULER</span></h3>
+          <div class="overflow-x-auto">
+           <table class="w-full border-collapse text-sm">
+            <thead>
+             <tr class="bg-[#1a3a5c] text-white">
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">KEGIATAN EKSTRAKURIKULER</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">KETERANGAN</th>
+             </tr>
+            </thead>
+            <tbody id="ekstra-tbody"></tbody>
+           </table>
+          </div>
+         </div><!-- F. Prestasi (Akademik & ADL) -->
+         <div id="section-f-prestasi" class="mt-10 pt-8 border-t-2 border-[#e2e8f0]">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-f-title">C. PRESTASI</span></h3>
+          <div class="overflow-x-auto">
+           <table class="w-full border-collapse text-sm">
+            <thead>
+             <tr class="bg-[#1a3a5c] text-white">
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">JENIS PRESTASI</th>
+              <th class="border border-[#1a3a5c] px-4 py-3 text-center font-semibold">KETERANGAN</th>
+             </tr>
+            </thead>
+            <tbody id="prestasi-tbody"></tbody>
+           </table>
+          </div>
+         </div><!-- G. Ketidakhadiran -->
+         <div class="mt-10 pt-8 border-t-2 border-[#e2e8f0]">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-g-title">D. KETIDAKHADIRAN</span></h3>
+          <div class="grid grid-cols-3 gap-6">
+           <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#1a3a5c]">Sakit :</label><input type="number" id="ketidakhadiran-sakit" min="0" placeholder="0" class="w-full px-3 py-2 border border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+           <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#1a3a5c]">Ijin :</label><input type="number" id="ketidakhadiran-ijin" min="0" placeholder="0" class="w-full px-3 py-2 border border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+           <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#1a3a5c]">Tanpa Keterangan :</label><input type="number" id="ketidakhadiran-tanpa" min="0" placeholder="0" class="w-full px-3 py-2 border border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+          </div>
+         </div><!-- H. Catatan -->
+         <div class="mt-10 pt-8 border-t-2 border-[#e2e8f0]">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-h-title">E. CATATAN WALI KELAS</span></h3><textarea id="catatan-wali" placeholder="Masukkan catatan wali kelas..." class="w-full px-4 py-3 border border-[#1a3a5c] rounded text-sm focus:border-[#f59e0b] focus:outline-none" rows="4"></textarea>
+         </div><!-- I. Kelulusan -->
+         <div class="mt-10 pt-8 border-t-2 border-[#e2e8f0]" id="grade-progression-section">
+          <h3 class="font-heading text-xl font-bold text-[#1a3a5c] mb-6"><span class="section-i-title">F. KETERANGAN KELULUSAN</span></h3>
+          <div id="progression-regular" class="grid grid-cols-2 gap-4">
+           <div>
+            <label for="naik-ke-kelas" class="block text-sm font-semibold text-[#1a3a5c] mb-2">Naik ke Kelas</label><input type="text" id="naik-ke-kelas" placeholder="Masukkan kelas tujuan" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+           <div>
+            <label for="tinggal-di-kelas" class="block text-sm font-semibold text-[#1a3a5c] mb-2">Tinggal di Kelas</label><input type="text" id="tinggal-di-kelas" placeholder="Masukkan kelas yang diulang" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none">
+           </div>
+          </div>
+          <div id="progression-graduation" class="hidden"><label for="status-kelulusan" class="block text-sm font-semibold text-[#1a3a5c] mb-2">Status Kelulusan</label> <select id="status-kelulusan" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm focus:border-[#f59e0b] focus:outline-none"><option value="">Pilih Status</option><option>LULUS</option><option>TIDAK LULUS</option></select>
+          </div>
+         </div><!-- Hidden teacher fields -->
+         <div class="mt-10 pt-8 border-t-2 border-[#e2e8f0] hidden">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+           <div>
+            <label for="guru-nama" class="block text-sm font-semibold text-[#1a3a5c]">Nama Guru Pengampu</label><input type="text" id="guru-nama" placeholder="Nama guru" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm">
+           </div>
+           <div>
+            <label for="guru-nip" class="block text-sm font-semibold text-[#1a3a5c]">NIP Guru</label><input type="text" id="guru-nip" placeholder="NIP" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm">
+           </div>
+           <div>
+            <label for="wali-nama" class="block text-sm font-semibold text-[#1a3a5c]">Nama Wali Kelas</label><input type="text" id="wali-nama" placeholder="Nama wali kelas" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm">
+           </div>
+           <div>
+            <label for="wali-nip" class="block text-sm font-semibold text-[#1a3a5c]">NIP Wali</label><input type="text" id="wali-nip" placeholder="NIP" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm">
+           </div>
+           <div>
+            <label for="orangtua-nama" class="block text-sm font-semibold text-[#1a3a5c]">Nama Orangtua/Wali</label><input type="text" id="orangtua-nama" placeholder="Nama orangtua" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm">
+           </div>
+           <div>
+            <label for="kepala-nama" class="block text-sm font-semibold text-[#1a3a5c]">Nama Kepala Sekolah</label><input type="text" id="kepala-nama" value="Dr. DINI HANDAYANI, M. Pd." class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm">
+           </div>
+           <div>
+            <label for="kepala-nip" class="block text-sm font-semibold text-[#1a3a5c]">NIP Kepala Sekolah</label><input type="text" id="kepala-nip" value="NIP. 198312082011012003" class="w-full px-3 py-2 border-2 border-[#e2e8f0] rounded text-sm">
+           </div>
+          </div>
+         </div>
+         <p class="text-sm text-[#4a6d8c] mt-8 mb-6 text-center font-semibold">Sukabumi, 24 Juni 2026</p><!-- Signature Table -->
+         <div class="mt-6 pt-4">
+          <table class="w-full border-collapse">
+           <thead>
+            <tr>
+             <th class="px-4 py-3 text-center text-sm font-semibold text-[#1a3a5c]">Orangtua/Wali</th>
+             <th class="px-4 py-3 text-center text-sm font-semibold text-[#1a3a5c]">Guru Pengampu</th>
+             <th class="px-4 py-3 text-center text-sm font-semibold text-[#1a3a5c]">Wali Kelas</th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr>
+             <td class="px-4 py-3 text-center align-top">
+              <div class="flex flex-col gap-3">
+               <input type="text" placeholder="Tanda Tangan" class="w-full px-2 py-12 bg-white text-xs" style="border:none;"><input type="text" id="sig-orangtua" placeholder="Nama Orangtua/Wali" class="w-full px-2 py-1 rounded text-xs text-center" style="border:none;background:transparent;">
+              </div></td>
+             <td class="px-4 py-3 text-center align-top">
+              <div class="flex flex-col gap-3">
+               <input type="text" placeholder="Tanda Tangan" class="w-full px-2 py-12 bg-white text-xs" style="border:none;">
+               <div class="flex flex-col gap-1">
+                <input type="text" id="sig-guru-nama" placeholder="Nama Guru Pengampu" class="w-full px-2 py-1 text-xs text-center font-bold underline" style="border:none;background:transparent;"><input type="text" id="sig-guru-nip" placeholder="NIP" class="w-full px-2 py-1 text-xs text-center" style="border:none;background:transparent;">
+               </div>
+               <div class="flex flex-col gap-1 pt-8">
+                <p class="text-xs text-center font-semibold text-[#1a3a5c]" style="font-size:12px;margin-top:24px;">Mengetahui,</p>
+                <p class="text-xs text-center font-semibold text-[#1a3a5c]" style="font-size:12px;">Kepala SLB Negeri Handayani</p>
+               </div>
+               <div class="flex flex-col gap-1 pt-8">
+                <input type="text" placeholder="Tanda Tangan" class="w-full px-2 py-5 bg-white text-xs" style="border:none;margin-top:96px;"><input type="text" id="sig-kepala-nama" placeholder="Nama Kepala Sekolah" class="w-full px-2 py-1 text-xs text-center font-bold underline" style="border:none;background:transparent;" value="Dr. DINI HANDAYANI, M. Pd." readonly><input type="text" id="sig-kepala-nip" placeholder="NIP" class="w-full px-2 py-1 text-xs text-center" style="border:none;background:transparent;" value="NIP. 198312082011012003" readonly>
+               </div>
+              </div></td>
+             <td class="px-4 py-3 text-center align-top">
+              <div class="flex flex-col gap-3">
+               <input type="text" placeholder="Tanda Tangan" class="w-full px-2 py-12 bg-white text-xs" style="border:none;">
+               <div class="flex flex-col gap-1">
+                <input type="text" id="sig-wali-nama" placeholder="Nama Wali Kelas" class="w-full px-2 py-1 text-xs text-center font-bold underline" style="border:none;background:transparent;"><input type="text" id="sig-wali-nip" placeholder="NIP" class="w-full px-2 py-1 text-xs text-center" style="border:none;background:transparent;">
+               </div>
+              </div></td>
+            </tr>
+           </tbody>
+          </table>
+         </div>
+         <div id="save-buttons-container" class="flex gap-3 mt-8"><button type="submit" id="submit-btn" class="flex-1 py-3 bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 hover:from-emerald-500 hover:via-teal-600 hover:to-cyan-700 text-white font-bold rounded-xl transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-md"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> <span>Simpan Data</span></button> <button type="button" id="draft-btn" class="flex-1 py-3 bg-gradient-to-br from-purple-400 via-indigo-500 to-blue-600 hover:from-purple-500 hover:via-indigo-600 hover:to-blue-700 text-white font-bold rounded-xl transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-md"><i data-lucide="save" style="width:20px;height:20px;"></i> <span>Simpan Draft</span></button>
+         </div>
+         <div id="akademik-buttons-container" class="flex gap-3 mt-8 hidden"><button type="submit" id="akademik-submit-btn" class="flex-1 py-3 bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 hover:from-emerald-500 hover:via-teal-600 hover:to-cyan-700 text-white font-bold rounded-xl transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-md"><i data-lucide="check-circle" style="width:20px;height:20px;"></i> <span>Simpan Data</span></button> <button type="button" id="akademik-draft-btn" class="flex-1 py-3 bg-gradient-to-br from-purple-400 via-indigo-500 to-blue-600 hover:from-purple-500 hover:via-indigo-600 hover:to-blue-700 text-white font-bold rounded-xl transition transform hover:scale-105 flex items-center justify-center gap-2 shadow-md"><i data-lucide="save" style="width:20px;height:20px;"></i> <span>Simpan Draft</span></button>
+         </div><button type="button" id="print-btn" class="w-full py-3 bg-gradient-to-r from-orange-400 via-red-500 to-pink-600 hover:from-orange-500 hover:via-red-600 hover:to-pink-700 text-white font-bold rounded-xl transition transform hover:scale-105 flex items-center justify-center gap-2 mt-3 shadow-md"><i data-lucide="file-text" style="width:20px;height:20px;"></i> <span>Cetak PDF</span></button>
+         <div id="form-msg" class="text-center text-sm mt-3 hidden"></div>
+        </form>
+       </div>
+      </div><!-- Saved Records -->
+      <div class="max-w-5xl mx-auto">
+       <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+        <h2 class="font-heading text-2xl font-bold text-[#1a3a5c] mb-6 flex items-center gap-3"><i data-lucide="database" style="width:28px;height:28px;color:#059669;"></i> Data Tersimpan</h2>
+        <div id="records-list" class="space-y-4">
+         <div class="text-center py-8">
+          <i data-lucide="inbox" style="width:48px;height:48px;color:#cbd5e1;margin:0 auto 12px;" class="block"></i>
+          <p class="text-[#4a6d8c] text-sm">Belum ada data tersimpan.</p>
+         </div>
+        </div>
+        <div class="pt-8 border-t-2 border-[#e2e8f0] mt-6">
+         <h3 class="font-heading text-2xl font-bold text-[#1a3a5c] mb-6 flex items-center gap-3"><i data-lucide="file-stack" style="width:28px;height:28px;"></i><span style="background:linear-gradient(135deg,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">📋 Draft Tersimpan</span></h3>
+         <div id="drafts-container" class="space-y-4">
+          <div class="text-center py-8">
+           <i data-lucide="file-text" style="width:48px;height:48px;color:#cbd5e1;margin:0 auto 12px;" class="block"></i>
+           <p class="text-[#4a6d8c] text-sm">Belum ada draft tersimpan.</p>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="text-center pb-6 pt-6">
+        <button id="logout-btn" class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white font-bold rounded-lg transition shadow-lg transform hover:scale-105"><i data-lucide="log-out" style="width:20px;height:20px;"></i> <span>Keluar dari Sistem</span></button>
+       </div>
+      </div>
+     </div>
+    </div><!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-green-600 text-white px-5 py-3 rounded-lg shadow-lg hidden transition-opacity text-sm max-w-sm"></div><!-- Preview Modal -->
+    <div id="preview-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center p-4 z-50" style="backdrop-filter: blur(4px);">
+     <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="sticky top-0 bg-white border-b border-[#e2e8f0] p-4 flex justify-between items-center">
+       <h2 class="text-lg font-bold text-[#1a3a5c]">Preview Rapor</h2><button type="button" id="close-preview-modal" class="text-[#9ca3af] hover:text-[#1a3a5c] p-1"><i data-lucide="x" style="width:24px;height:24px;"></i></button>
+      </div>
+      <div id="preview-content" class="p-6 text-[#1a3a5c]"></div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="/_sdk/editing_sdk.js"></script>
+  <script>
+const SUBJECTS = ['Pendidikan Agama dan Budi Pekerti','Pendidikan Pancasila dan Kewarganegaraan','Bahasa Indonesia','Matematika','Ilmu Pengetahuan Alam','Ilmu Pengetahuan Sosial','Pendidikan Jasmani Olahraga dan Kesehatan','Seni dan Budaya','Bahasa Inggris','KETERAMPILAN PILIHAN','A. Teknologi Informasi dan Komunikasi','B. Tata Boga','Muatan Lokal'];
+const SUBJECTS_ADL = ['Pendidikan Agama dan Budi Pekerti','Pendidikan Pancasila dan Kewarganegaraan','Bahasa Indonesia','Matematika','Ilmu Pengetahuan Alam','Ilmu Pengetahuan Sosial','Pendidikan Jasmani Olahraga dan Kesehatan','Seni dan Budaya','Bahasa Inggris','KETERAMPILAN PILIHAN','A. Teknologi Informasi dan Komunikasi','B. Tata Boga','Muatan Lokal','PROGRAM KHUSUS','A. Merawat Diri','B. Mengurus Diri','C. Menolong Diri','D. Sosial Komunikasi','E. Keterampilan Sederhana'];
+
+let activeTab = 'akademik';
+let allRecords = [];
+let allDrafts = [];
+let currentUser = null;
+let currentEditingRecord = null;
+let currentEditingDraft = null;
+
+// Per-tab form storage
+const tabFormStorage = {
+  akademik: { nama: '', nisn: '', kelas: '', semester: '', catatan: '', data: {} },
+  adl: { nama: '', nisn: '', kelas: '', semester: '', catatan: '', data: {} },
+  rehab: { nama: '', nisn: '', kelas: '', semester: '', catatan: '', data: {} }
+};
+
+const VALID_TEACHERS = [
+  { nama: 'zein', nisn: '00000' },
+  { nama: 'ifauzi', nisn: '11111' },
+  { nama: 'SLBN Handayani', nisn: 'sabubukna' }
+];
+
+function saveFormToTab(tab) {
+  const gs = (el) => el ? (el.value || '').trim() : '';
+  tabFormStorage[tab].nama = gs(document.getElementById('form-nama'));
+  tabFormStorage[tab].nisn = gs(document.getElementById('form-nisn'));
+  tabFormStorage[tab].kelas = gs(document.getElementById('form-kelas'));
+  tabFormStorage[tab].semester = gs(document.getElementById('form-semester'));
+  tabFormStorage[tab].catatan = gs(document.getElementById('catatan-wali'));
+  // Save all form inputs
+  const nilaiCapaianObj = {};
+  for (let i = 1; i <= 19; i++) {
+    const n = document.querySelector(`.nilai-input[data-index="${i}"]`);
+    const c = document.querySelector(`.capaian-input[data-index="${i}"]`);
+    nilaiCapaianObj[`nilai_${i}`] = gs(n);
+    nilaiCapaianObj[`capaian_${i}`] = gs(c);
+  }
+  const ppiObj = {
+    ppi_karakteristik: gs(document.querySelector('.ppi-input[data-field="ppi_karakteristik"]')),
+    ppi_kekuatan: gs(document.querySelector('.ppi-input[data-field="ppi_kekuatan"]')),
+    ppi_hambatan: gs(document.querySelector('.ppi-input[data-field="ppi_hambatan"]')),
+    ppi_target: gs(document.querySelector('.ppi-input[data-field="ppi_target"]'))
+  };
+  const ppPrefixes = ['komunikasi','sosial','kemandirian','motorik','pengembangan'];
+  const perkembanganObj = {};
+  for (let i = 1; i <= 5; i++) {
+    const prefix = ppPrefixes[i-1];
+    perkembanganObj[`pp_${prefix}_awal`] = gs(document.querySelector(`.pp-awal-input[data-index="${i}"]`));
+    perkembanganObj[`pp_${prefix}_tengah`] = gs(document.querySelector(`.pp-tengah-input[data-index="${i}"]`));
+    perkembanganObj[`pp_${prefix}_akhir`] = gs(document.querySelector(`.pp-akhir-input[data-index="${i}"]`));
+  }
+  const lkpObj = {};
+  for (let i = 1; i <= 5; i++) {
+    const prefix = ppPrefixes[i-1];
+    lkpObj[`lkp_${prefix}_target`] = gs(document.querySelector(`.lkp-target-input[data-index="${i}"]`));
+    lkpObj[`lkp_${prefix}_ketercapaian`] = gs(document.querySelector(`.lkp-ketercapaian-input[data-index="${i}"]`));
+    lkpObj[`lkp_${prefix}_deskripsi`] = gs(document.querySelector(`.lkp-deskripsi-input[data-index="${i}"]`));
+  }
+  const ekstraObj = {};
+  for (let i = 1; i <= 3; i++) {
+    ekstraObj[`ekstrakurikuler_${i}`] = gs(document.querySelector(`.ekstrakurikuler-input[data-index="${i}"]`));
+    ekstraObj[`ekstrakurikuler_${i}_ket`] = gs(document.querySelector(`.ekstrakurikuler-ket-input[data-index="${i}"]`));
+  }
+  const prestasiObj = {};
+  for (let i = 1; i <= 3; i++) {
+    prestasiObj[`prestasi_${i}`] = gs(document.querySelector(`.prestasi-input[data-index="${i}"]`));
+    prestasiObj[`prestasi_${i}_ket`] = gs(document.querySelector(`.prestasi-ket-input[data-index="${i}"]`));
+  }
+  tabFormStorage[tab].data = {
+    nilai_capaian_data: JSON.stringify(nilaiCapaianObj),
+    ppi_data: JSON.stringify(ppiObj),
+    perkembangan_data: JSON.stringify(perkembanganObj),
+    lkp_data: JSON.stringify(lkpObj),
+    ekstrakurikuler_data: JSON.stringify(ekstraObj),
+    prestasi_data: JSON.stringify(prestasiObj),
+    ketidakhadiran_sakit: gs(document.getElementById('ketidakhadiran-sakit')) || '0',
+    ketidakhadiran_ijin: gs(document.getElementById('ketidakhadiran-ijin')) || '0',
+    ketidakhadiran_tanpa: gs(document.getElementById('ketidakhadiran-tanpa')) || '0',
+    naik_ke_kelas: gs(document.getElementById('naik-ke-kelas')),
+    tinggal_di_kelas: gs(document.getElementById('tinggal-di-kelas')),
+    status_kelulusan: gs(document.getElementById('status-kelulusan')),
+    nama_guru_pengampu: gs(document.getElementById('guru-nama')),
+    nip_guru_pengampu: gs(document.getElementById('guru-nip')),
+    nama_wali_kelas: gs(document.getElementById('wali-nama')),
+    nip_wali_kelas: gs(document.getElementById('wali-nip')),
+    nama_orangtua: gs(document.getElementById('orangtua-nama')),
+    nama_kepala_sekolah: gs(document.getElementById('kepala-nama')),
+    nip_kepala_sekolah: gs(document.getElementById('kepala-nip'))
+  };
+}
+
+function restoreFormFromTab(tab) {
+  const storage = tabFormStorage[tab];
+  document.getElementById('form-nama').value = storage.nama;
+  document.getElementById('form-nisn').value = storage.nisn;
+  document.getElementById('form-kelas').value = storage.kelas;
+  document.getElementById('form-semester').value = storage.semester;
+  document.getElementById('catatan-wali').value = storage.catatan;
+  renderSubjectRows();
+  
+  const data = storage.data;
+  let nilaiCapaianData = {};
+  try { if (data.nilai_capaian_data) nilaiCapaianData = JSON.parse(data.nilai_capaian_data); } catch(e){}
+  for (let i = 1; i <= 19; i++) {
+    const n = document.querySelector(`.nilai-input[data-index="${i}"]`);
+    const c = document.querySelector(`.capaian-input[data-index="${i}"]`);
+    if (n) n.value = nilaiCapaianData[`nilai_${i}`] || '';
+    if (c) c.value = nilaiCapaianData[`capaian_${i}`] || '';
+  }
+
+  let ppiData = {};
+  try { if (data.ppi_data) ppiData = JSON.parse(data.ppi_data); } catch(e){}
+  const ppiFields = ['ppi_karakteristik','ppi_kekuatan','ppi_hambatan','ppi_target'];
+  ppiFields.forEach(f => { const el = document.querySelector(`.ppi-input[data-field="${f}"]`); if(el) el.value = ppiData[f] || ''; });
+
+  let perkembanganData = {};
+  try { if (data.perkembangan_data) perkembanganData = JSON.parse(data.perkembangan_data); } catch(e){}
+  const ppPrefixes = ['komunikasi','sosial','kemandirian','motorik','pengembangan'];
+  ppPrefixes.forEach((prefix, i) => {
+    const idx = i + 1;
+    const a = document.querySelector(`.pp-awal-input[data-index="${idx}"]`);
+    const t = document.querySelector(`.pp-tengah-input[data-index="${idx}"]`);
+    const ak = document.querySelector(`.pp-akhir-input[data-index="${idx}"]`);
+    if (a) a.value = perkembanganData[`pp_${prefix}_awal`] || '';
+    if (t) t.value = perkembanganData[`pp_${prefix}_tengah`] || '';
+    if (ak) ak.value = perkembanganData[`pp_${prefix}_akhir`] || '';
+  });
+
+  let lkpData = {};
+  try { if (data.lkp_data) lkpData = JSON.parse(data.lkp_data); } catch(e){}
+  ppPrefixes.forEach((prefix, i) => {
+    const idx = i + 1;
+    const t = document.querySelector(`.lkp-target-input[data-index="${idx}"]`);
+    const k = document.querySelector(`.lkp-ketercapaian-input[data-index="${idx}"]`);
+    const d = document.querySelector(`.lkp-deskripsi-input[data-index="${idx}"]`);
+    if (t) t.value = lkpData[`lkp_${prefix}_target`] || '';
+    if (k) k.value = lkpData[`lkp_${prefix}_ketercapaian`] || '';
+    if (d) d.value = lkpData[`lkp_${prefix}_deskripsi`] || '';
+  });
+
+  let ekstraData = {};
+  try { if (data.ekstrakurikuler_data) ekstraData = JSON.parse(data.ekstrakurikuler_data); } catch(e){}
+  for (let i = 1; i <= 3; i++) {
+    const e = document.querySelector(`.ekstrakurikuler-input[data-index="${i}"]`);
+    const ek = document.querySelector(`.ekstrakurikuler-ket-input[data-index="${i}"]`);
+    if (e) e.value = ekstraData[`ekstrakurikuler_${i}`] || '';
+    if (ek) ek.value = ekstraData[`ekstrakurikuler_${i}_ket`] || '';
+  }
+
+  let prestasiData = {};
+  try { if (data.prestasi_data) prestasiData = JSON.parse(data.prestasi_data); } catch(e){}
+  for (let i = 1; i <= 3; i++) {
+    const p = document.querySelector(`.prestasi-input[data-index="${i}"]`);
+    const pk = document.querySelector(`.prestasi-ket-input[data-index="${i}"]`);
+    if (p) p.value = prestasiData[`prestasi_${i}`] || '';
+    if (pk) pk.value = prestasiData[`prestasi_${i}_ket`] || '';
+  }
+
+  document.getElementById('ketidakhadiran-sakit').value = data.ketidakhadiran_sakit || '';
+  document.getElementById('ketidakhadiran-ijin').value = data.ketidakhadiran_ijin || '';
+  document.getElementById('ketidakhadiran-tanpa').value = data.ketidakhadiran_tanpa || '';
+  document.getElementById('naik-ke-kelas').value = data.naik_ke_kelas || '';
+  document.getElementById('tinggal-di-kelas').value = data.tinggal_di_kelas || '';
+  document.getElementById('status-kelulusan').value = data.status_kelulusan || '';
+  document.getElementById('guru-nama').value = data.nama_guru_pengampu || '';
+  document.getElementById('guru-nip').value = data.nip_guru_pengampu || '';
+  document.getElementById('wali-nama').value = data.nama_wali_kelas || '';
+  document.getElementById('wali-nip').value = data.nip_wali_kelas || '';
+  document.getElementById('orangtua-nama').value = data.nama_orangtua || '';
+  syncFormToSignature();
+  updateProgressionDisplay(storage.kelas);
+}
+
+
+function getActiveSubjects() {
+  if (activeTab === 'adl') return SUBJECTS_ADL;
+  return SUBJECTS;
+}
+
+function getKelasLogin() {
+  if (activeTab === 'akademik') return 'AKADEMIK';
+  if (activeTab === 'adl') return 'ADL';
+  return 'REHAB';
+}
+
+function renderSubjectRows() {
+  const tbody = document.getElementById('nilai-tbody');
+  tbody.innerHTML = '';
+  const subjects = getActiveSubjects();
+  subjects.forEach((subj, i) => {
+    const idx = i + 1;
+    if (subj === 'KETERAMPILAN PILIHAN' || subj === 'PROGRAM KHUSUS') {
+      tbody.innerHTML += `<tr class="bg-[#e8f0f8]"><td colspan="3" class="border border-[#e2e8f0] px-4 py-3 font-semibold text-[#1a3a5c] text-center">${subj}</td></tr>`;
+    } else {
+      tbody.innerHTML += `<tr class="hover:bg-[#f9fafb]"><td class="border border-[#e2e8f0] px-4 py-3">${subj}</td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="nilai-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Nilai"></td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="capaian-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Capaian"></td></tr>`;
+    }
+  });
+}
+
+function renderStaticRows() {
+  const ekstraTbody = document.getElementById('ekstra-tbody');
+  ekstraTbody.innerHTML = '';
+  for (let i = 1; i <= 3; i++) {
+    ekstraTbody.innerHTML += `<tr class="hover:bg-[#f9fafb]"><td class="border border-[#e2e8f0] px-4 py-2"><input type="text" class="ekstrakurikuler-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${i}" placeholder="Nama kegiatan"></td><td class="border border-[#e2e8f0] px-4 py-2"><input type="text" class="ekstrakurikuler-ket-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${i}" placeholder="Keterangan"></td></tr>`;
+  }
+  const prestasiTbody = document.getElementById('prestasi-tbody');
+  prestasiTbody.innerHTML = '';
+  for (let i = 1; i <= 3; i++) {
+    prestasiTbody.innerHTML += `<tr class="hover:bg-[#f9fafb]"><td class="border border-[#e2e8f0] px-4 py-2"><input type="text" class="prestasi-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${i}" placeholder="Jenis prestasi"></td><td class="border border-[#e2e8f0] px-4 py-2"><input type="text" class="prestasi-ket-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${i}" placeholder="Keterangan"></td></tr>`;
+  }
+  const perkembanganTbody = document.getElementById('perkembangan-tbody');
+  perkembanganTbody.innerHTML = '';
+  const perkembanganAspek = ['Komunikasi','Sosial Interaksi','Kemandirian','Motorik','Pengembangan Diri'];
+  perkembanganAspek.forEach((aspek, i) => {
+    const idx = i + 1;
+    perkembanganTbody.innerHTML += `<tr class="hover:bg-[#f9fafb]"><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">${aspek}</td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="pp-awal-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Deskripsi awal"></td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="pp-tengah-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Deskripsi tengah"></td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="pp-akhir-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Deskripsi akhir"></td></tr>`;
+  });
+  const lkpTbody = document.getElementById('lkp-tbody');
+  lkpTbody.innerHTML = '';
+  const lkpAspek = ['Komunikasi','Sosial Interaksi','Kemandirian','Motorik','Pengembangan Diri'];
+  lkpAspek.forEach((aspek, i) => {
+    const idx = i + 1;
+    lkpTbody.innerHTML += `<tr class="hover:bg-[#f9fafb]"><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">${aspek}</td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="lkp-target-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Target"></td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="lkp-ketercapaian-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Ketercapaian"></td><td class="border border-[#e2e8f0] px-3 py-2"><input type="text" class="lkp-deskripsi-input w-full px-2 py-1 border border-[#e2e8f0] rounded text-sm" data-index="${idx}" placeholder="Deskripsi"></td></tr>`;
+  });
+}
+
+function updateSectionVisibility() {
+  const isRehab = activeTab === 'rehab';
+  const isAkademikOrADL = activeTab === 'akademik' || activeTab === 'adl';
+  document.getElementById('section-a-nilai').classList.toggle('hidden', isRehab);
+  document.getElementById('section-b-ppi').classList.toggle('hidden', isAkademikOrADL);
+  document.getElementById('section-c-lkp').classList.toggle('hidden', isAkademikOrADL);
+  document.getElementById('section-d-perkembangan').classList.toggle('hidden', isAkademikOrADL);
+  document.getElementById('section-e-ekstrakurikuler').classList.toggle('hidden', isRehab);
+  document.getElementById('section-f-prestasi').classList.toggle('hidden', isRehab);
+
+  // Update section labels
+  if (isRehab) {
+    document.querySelector('.section-g-title').textContent = 'D. KETIDAKHADIRAN';
+    document.querySelector('.section-h-title').textContent = 'E. CATATAN WALI KELAS';
+    document.querySelector('.section-i-title').textContent = 'F. KETERANGAN KELULUSAN';
+  } else {
+    document.querySelector('.section-g-title').textContent = 'D. KETIDAKHADIRAN';
+    document.querySelector('.section-h-title').textContent = 'E. CATATAN WALI KELAS';
+    document.querySelector('.section-i-title').textContent = 'F. KETERANGAN KELULUSAN';
+  }
+}
+
+function switchTab(tab) {
+  saveFormToTab(activeTab);
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  restoreFormFromTab(tab);
+  updateSectionVisibility();
+  renderRecords();
+  renderDrafts();
+  updateSaveButtonsVisibility();
+}
+
+function updateSaveButtonsVisibility() {
+  const container = document.getElementById('save-buttons-container');
+  const akademikContainer = document.getElementById('akademik-buttons-container');
+  if (activeTab === 'akademik') {
+    container.classList.add('hidden');
+    akademikContainer.classList.remove('hidden');
+  } else {
+    container.classList.remove('hidden');
+    akademikContainer.classList.add('hidden');
+  }
+}
+
+// Tab click handlers
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+
+// Initialize
+renderSubjectRows();
+renderStaticRows();
+updateSectionVisibility();
+updateSaveButtonsVisibility();
+
+// Data SDK
+const dataHandler = {
+  onDataChanged(data) {
+    allRecords = data.filter(d => d.is_draft !== 'true');
+    allDrafts = data.filter(d => d.is_draft === 'true');
+    renderRecords();
+    renderDrafts();
+  }
+};
+
+let sdkReady = false;
+async function initializeSDK() {
+  try {
+    if (typeof window.dataSdk === 'undefined') { setTimeout(initializeSDK, 500); return; }
+    const result = await window.dataSdk.init(dataHandler);
+    if (result.isOk) sdkReady = true;
+    else showToast('Gagal menginisialisasi data', true);
+  } catch (err) { setTimeout(initializeSDK, 500); }
+}
+initializeSDK();
+
+function showToast(msg, isError) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = `fixed bottom-6 right-6 px-5 py-3 rounded-lg shadow-lg text-sm max-w-sm text-white ${isError ? 'bg-red-600' : 'bg-green-600'}`;
+  toast.classList.remove('hidden');
+  setTimeout(() => toast.classList.add('hidden'), 3000);
+}
+
+function showFormMsg(msg, isError) {
+  const el = document.getElementById('form-msg');
+  el.textContent = msg;
+  el.className = `text-center text-sm mt-3 ${isError ? 'text-red-500' : 'text-green-600'}`;
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 4000);
+}
+
+function getAllFormData() {
+  const gs = (el) => el ? (el.value || '').trim() : '';
+  const nilaiCapaianObj = {};
+  for (let i = 1; i <= 19; i++) {
+    const n = document.querySelector(`.nilai-input[data-index="${i}"]`);
+    const c = document.querySelector(`.capaian-input[data-index="${i}"]`);
+    nilaiCapaianObj[`nilai_${i}`] = gs(n);
+    nilaiCapaianObj[`capaian_${i}`] = gs(c);
+  }
+  const ppiObj = {
+    ppi_karakteristik: gs(document.querySelector('.ppi-input[data-field="ppi_karakteristik"]')),
+    ppi_kekuatan: gs(document.querySelector('.ppi-input[data-field="ppi_kekuatan"]')),
+    ppi_hambatan: gs(document.querySelector('.ppi-input[data-field="ppi_hambatan"]')),
+    ppi_target: gs(document.querySelector('.ppi-input[data-field="ppi_target"]'))
+  };
+  const ppPrefixes = ['komunikasi','sosial','kemandirian','motorik','pengembangan'];
+  const perkembanganObj = {};
+  for (let i = 1; i <= 5; i++) {
+    const prefix = ppPrefixes[i-1];
+    perkembanganObj[`pp_${prefix}_awal`] = gs(document.querySelector(`.pp-awal-input[data-index="${i}"]`));
+    perkembanganObj[`pp_${prefix}_tengah`] = gs(document.querySelector(`.pp-tengah-input[data-index="${i}"]`));
+    perkembanganObj[`pp_${prefix}_akhir`] = gs(document.querySelector(`.pp-akhir-input[data-index="${i}"]`));
+  }
+  const lkpObj = {};
+  for (let i = 1; i <= 5; i++) {
+    const prefix = ppPrefixes[i-1];
+    lkpObj[`lkp_${prefix}_target`] = gs(document.querySelector(`.lkp-target-input[data-index="${i}"]`));
+    lkpObj[`lkp_${prefix}_ketercapaian`] = gs(document.querySelector(`.lkp-ketercapaian-input[data-index="${i}"]`));
+    lkpObj[`lkp_${prefix}_deskripsi`] = gs(document.querySelector(`.lkp-deskripsi-input[data-index="${i}"]`));
+  }
+  const ekstraObj = {};
+  for (let i = 1; i <= 3; i++) {
+    ekstraObj[`ekstrakurikuler_${i}`] = gs(document.querySelector(`.ekstrakurikuler-input[data-index="${i}"]`));
+    ekstraObj[`ekstrakurikuler_${i}_ket`] = gs(document.querySelector(`.ekstrakurikuler-ket-input[data-index="${i}"]`));
+  }
+  const prestasiObj = {};
+  for (let i = 1; i <= 3; i++) {
+    prestasiObj[`prestasi_${i}`] = gs(document.querySelector(`.prestasi-input[data-index="${i}"]`));
+    prestasiObj[`prestasi_${i}_ket`] = gs(document.querySelector(`.prestasi-ket-input[data-index="${i}"]`));
+  }
+  return {
+    nama_siswa: gs(document.getElementById('form-nama')),
+    nisn: gs(document.getElementById('form-nisn')),
+    kelas: gs(document.getElementById('form-kelas')),
+    semester: gs(document.getElementById('form-semester')),
+    tahun_pelajaran: '2025/2026',
+    is_draft: 'false',
+    kelas_login: getKelasLogin(),
+    ketidakhadiran_sakit: gs(document.getElementById('ketidakhadiran-sakit')) || '0',
+    ketidakhadiran_ijin: gs(document.getElementById('ketidakhadiran-ijin')) || '0',
+    ketidakhadiran_tanpa: gs(document.getElementById('ketidakhadiran-tanpa')) || '0',
+    catatan_wali_kelas: gs(document.getElementById('catatan-wali')),
+    naik_ke_kelas: gs(document.getElementById('naik-ke-kelas')),
+    tinggal_di_kelas: gs(document.getElementById('tinggal-di-kelas')),
+    status_kelulusan: gs(document.getElementById('status-kelulusan')),
+    nama_guru_pengampu: gs(document.getElementById('guru-nama')),
+    nip_guru_pengampu: gs(document.getElementById('guru-nip')),
+    nama_wali_kelas: gs(document.getElementById('wali-nama')),
+    nip_wali_kelas: gs(document.getElementById('wali-nip')),
+    nama_orangtua: gs(document.getElementById('orangtua-nama')),
+    nama_kepala_sekolah: gs(document.getElementById('kepala-nama')),
+    nip_kepala_sekolah: gs(document.getElementById('kepala-nip')),
+    ppi_data: JSON.stringify(ppiObj),
+    nilai_capaian_data: JSON.stringify(nilaiCapaianObj),
+    perkembangan_data: JSON.stringify(perkembanganObj),
+    lkp_data: JSON.stringify(lkpObj),
+    ekstrakurikuler_data: JSON.stringify(ekstraObj),
+    prestasi_data: JSON.stringify(prestasiObj),
+    created_at: new Date().toISOString()
+  };
+}
+
+function clearForm() {
+  tabFormStorage[activeTab] = { nama: '', nisn: '', kelas: '', semester: '', catatan: '', data: {} };
+  document.getElementById('form-kelas').value = '';
+  document.getElementById('form-semester').value = '';
+  document.getElementById('form-nama').value = '';
+  document.getElementById('form-nisn').value = '';
+  document.querySelectorAll('.nilai-input, .capaian-input, .ekstrakurikuler-input, .ekstrakurikuler-ket-input, .prestasi-input, .prestasi-ket-input, .lkp-target-input, .lkp-ketercapaian-input, .lkp-deskripsi-input, .ppi-input, .pp-awal-input, .pp-tengah-input, .pp-akhir-input').forEach(i => i.value = '');
+  document.getElementById('ketidakhadiran-sakit').value = '';
+  document.getElementById('ketidakhadiran-ijin').value = '';
+  document.getElementById('ketidakhadiran-tanpa').value = '';
+  document.getElementById('catatan-wali').value = '';
+  document.getElementById('naik-ke-kelas').value = '';
+  document.getElementById('tinggal-di-kelas').value = '';
+  document.getElementById('status-kelulusan').value = '';
+  document.getElementById('guru-nama').value = '';
+  document.getElementById('guru-nip').value = '';
+  document.getElementById('wali-nama').value = '';
+  document.getElementById('wali-nip').value = '';
+  document.getElementById('orangtua-nama').value = '';
+  document.getElementById('sig-orangtua').value = '';
+  document.getElementById('sig-guru-nama').value = '';
+  document.getElementById('sig-guru-nip').value = '';
+  document.getElementById('sig-wali-nama').value = '';
+  document.getElementById('sig-wali-nip').value = '';
+  currentEditingRecord = null;
+  currentEditingDraft = null;
+}
+
+function loadDataToForm(rec) {
+  // Switch to appropriate tab first
+  const kl = (rec.kelas_login || '').toUpperCase();
+  if (kl.includes('ADL')) switchTab('adl');
+  else if (kl.includes('REHAB')) switchTab('rehab');
+  else switchTab('akademik');
+
+  document.getElementById('form-kelas').value = rec.kelas || '';
+  document.getElementById('form-semester').value = rec.semester || '';
+  document.getElementById('form-nama').value = rec.nama_siswa || '';
+  document.getElementById('form-nisn').value = rec.nisn || '';
+  renderSubjectRows();
+
+  let nilaiCapaianData = {};
+  try { if (rec.nilai_capaian_data) nilaiCapaianData = JSON.parse(rec.nilai_capaian_data); } catch(e){}
+  for (let i = 1; i <= 19; i++) {
+    const n = document.querySelector(`.nilai-input[data-index="${i}"]`);
+    const c = document.querySelector(`.capaian-input[data-index="${i}"]`);
+    if (n) n.value = nilaiCapaianData[`nilai_${i}`] || '';
+    if (c) c.value = nilaiCapaianData[`capaian_${i}`] || '';
+  }
+
+  let ppiData = {};
+  try { if (rec.ppi_data) ppiData = JSON.parse(rec.ppi_data); } catch(e){}
+  const ppiFields = ['ppi_karakteristik','ppi_kekuatan','ppi_hambatan','ppi_target'];
+  ppiFields.forEach(f => { const el = document.querySelector(`.ppi-input[data-field="${f}"]`); if(el) el.value = ppiData[f] || ''; });
+
+  let perkembanganData = {};
+  try { if (rec.perkembangan_data) perkembanganData = JSON.parse(rec.perkembangan_data); } catch(e){}
+  const ppPrefixes = ['komunikasi','sosial','kemandirian','motorik','pengembangan'];
+  ppPrefixes.forEach((prefix, i) => {
+    const idx = i + 1;
+    const a = document.querySelector(`.pp-awal-input[data-index="${idx}"]`);
+    const t = document.querySelector(`.pp-tengah-input[data-index="${idx}"]`);
+    const ak = document.querySelector(`.pp-akhir-input[data-index="${idx}"]`);
+    if (a) a.value = perkembanganData[`pp_${prefix}_awal`] || '';
+    if (t) t.value = perkembanganData[`pp_${prefix}_tengah`] || '';
+    if (ak) ak.value = perkembanganData[`pp_${prefix}_akhir`] || '';
+  });
+
+  let lkpData = {};
+  try { if (rec.lkp_data) lkpData = JSON.parse(rec.lkp_data); } catch(e){}
+  ppPrefixes.forEach((prefix, i) => {
+    const idx = i + 1;
+    const t = document.querySelector(`.lkp-target-input[data-index="${idx}"]`);
+    const k = document.querySelector(`.lkp-ketercapaian-input[data-index="${idx}"]`);
+    const d = document.querySelector(`.lkp-deskripsi-input[data-index="${idx}"]`);
+    if (t) t.value = lkpData[`lkp_${prefix}_target`] || '';
+    if (k) k.value = lkpData[`lkp_${prefix}_ketercapaian`] || '';
+    if (d) d.value = lkpData[`lkp_${prefix}_deskripsi`] || '';
+  });
+
+  let ekstraData = {};
+  try { if (rec.ekstrakurikuler_data) ekstraData = JSON.parse(rec.ekstrakurikuler_data); } catch(e){}
+  for (let i = 1; i <= 3; i++) {
+    const e = document.querySelector(`.ekstrakurikuler-input[data-index="${i}"]`);
+    const ek = document.querySelector(`.ekstrakurikuler-ket-input[data-index="${i}"]`);
+    if (e) e.value = ekstraData[`ekstrakurikuler_${i}`] || '';
+    if (ek) ek.value = ekstraData[`ekstrakurikuler_${i}_ket`] || '';
+  }
+
+  let prestasiData = {};
+  try { if (rec.prestasi_data) prestasiData = JSON.parse(rec.prestasi_data); } catch(e){}
+  for (let i = 1; i <= 3; i++) {
+    const p = document.querySelector(`.prestasi-input[data-index="${i}"]`);
+    const pk = document.querySelector(`.prestasi-ket-input[data-index="${i}"]`);
+    if (p) p.value = prestasiData[`prestasi_${i}`] || '';
+    if (pk) pk.value = prestasiData[`prestasi_${i}_ket`] || '';
+  }
+
+  document.getElementById('ketidakhadiran-sakit').value = rec.ketidakhadiran_sakit || '';
+  document.getElementById('ketidakhadiran-ijin').value = rec.ketidakhadiran_ijin || '';
+  document.getElementById('ketidakhadiran-tanpa').value = rec.ketidakhadiran_tanpa || '';
+  document.getElementById('catatan-wali').value = rec.catatan_wali_kelas || '';
+  document.getElementById('naik-ke-kelas').value = rec.naik_ke_kelas || '';
+  document.getElementById('tinggal-di-kelas').value = rec.tinggal_di_kelas || '';
+  document.getElementById('status-kelulusan').value = rec.status_kelulusan || '';
+  document.getElementById('guru-nama').value = rec.nama_guru_pengampu || '';
+  document.getElementById('guru-nip').value = rec.nip_guru_pengampu || '';
+  document.getElementById('wali-nama').value = rec.nama_wali_kelas || '';
+  document.getElementById('wali-nip').value = rec.nip_wali_kelas || '';
+  document.getElementById('orangtua-nama').value = rec.nama_orangtua || '';
+  document.getElementById('kepala-nama').value = rec.nama_kepala_sekolah || 'Dr. DINI HANDAYANI, M. Pd.';
+  document.getElementById('kepala-nip').value = rec.nip_kepala_sekolah || 'NIP. 198312082011012003';
+  syncFormToSignature();
+  updateProgressionDisplay(rec.kelas || '');
+}
+
+function updateProgressionDisplay(kelas) {
+  const graduationNumbers = ['6','9','12','VI','IX','XII'];
+  let isGrad = false;
+  for (const num of graduationNumbers) { if (kelas.toLowerCase().includes(num.toLowerCase())) { isGrad = true; break; } }
+  document.getElementById('progression-regular').classList.toggle('hidden', isGrad);
+  document.getElementById('progression-graduation').classList.toggle('hidden', !isGrad);
+}
+
+document.getElementById('form-kelas').addEventListener('input', (e) => updateProgressionDisplay(e.target.value));
+
+function syncSignatureToForm() {
+  document.getElementById('guru-nama').value = document.getElementById('sig-guru-nama').value;
+  document.getElementById('guru-nip').value = document.getElementById('sig-guru-nip').value;
+  document.getElementById('wali-nama').value = document.getElementById('sig-wali-nama').value;
+  document.getElementById('wali-nip').value = document.getElementById('sig-wali-nip').value;
+  document.getElementById('orangtua-nama').value = document.getElementById('sig-orangtua').value;
+}
+function syncFormToSignature() {
+  document.getElementById('sig-orangtua').value = document.getElementById('orangtua-nama').value;
+  document.getElementById('sig-guru-nama').value = document.getElementById('guru-nama').value;
+  document.getElementById('sig-guru-nip').value = document.getElementById('guru-nip').value;
+  document.getElementById('sig-wali-nama').value = document.getElementById('wali-nama').value;
+  document.getElementById('sig-wali-nip').value = document.getElementById('wali-nip').value;
+}
+['sig-orangtua','sig-guru-nama','sig-guru-nip','sig-wali-nama','sig-wali-nip'].forEach(id => { document.getElementById(id).addEventListener('input', syncSignatureToForm); });
+['orangtua-nama','guru-nama','guru-nip','wali-nama','wali-nip'].forEach(id => { document.getElementById(id).addEventListener('input', syncFormToSignature); });
+
+function renderRecords() {
+  const container = document.getElementById('records-list');
+  // Filter records by active tab
+  const filtered = allRecords.filter(r => {
+    const kl = (r.kelas_login || '').toUpperCase();
+    if (activeTab === 'akademik') return kl.includes('AKADEMIK');
+    if (activeTab === 'adl') return kl.includes('ADL');
+    return kl.includes('REHAB');
+  });
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="text-center py-8"><i data-lucide="inbox" style="width:48px;height:48px;color:#cbd5e1;margin:0 auto 12px;" class="block"></i><p class="text-[#4a6d8c] text-sm">Belum ada data tersimpan.</p></div>';
+    lucide.createIcons();
+    return;
+  }
+  container.innerHTML = '';
+  filtered.forEach((rec, idx) => {
+    const colors = ['#dbeafe','#dcfce7','#fef3c7','#f3e8ff','#fce7f3'];
+    const colorMap = {0:'#3b82f6',1:'#10b981',2:'#f59e0b',3:'#8b5cf6',4:'#ec4899'};
+    const bgColor = colors[idx % 5];
+    const color = colorMap[idx % 5];
+    const el = document.createElement('div');
+    el.className = 'p-5 rounded-xl flex items-center justify-between border-l-4 shadow-sm hover:shadow-md transition';
+    el.style.backgroundColor = bgColor;
+    el.style.borderLeftColor = color;
+    el.innerHTML = `<div class="flex-1"><div class="flex items-center gap-3 mb-2"><i data-lucide="user-check" style="width:20px;height:20px;color:${color};"></i><p class="font-bold text-[#1a3a5c]">${rec.nama_siswa||'-'}</p></div><p class="text-xs text-[#4a6d8c] ml-7">NISN: <span class="font-semibold">${rec.nisn||'-'}</span> • Kelas: <span class="font-semibold">${rec.kelas||'-'}</span> • Semester: <span class="font-semibold">${rec.semester||'-'}</span></p></div><div class="flex gap-2 flex-shrink-0"><button type="button" class="pdf-btn p-2 rounded-lg transition hover:scale-110" style="background:#fee2e2;color:#dc2626;" title="Cetak"><i data-lucide="printer" style="width:18px;height:18px;"></i></button><button type="button" class="del-btn p-2 rounded-lg transition hover:scale-110" style="background:#fecaca;color:#991b1b;" title="Hapus"><i data-lucide="trash-2" style="width:18px;height:18px;"></i></button></div>`;
+    container.appendChild(el);
+    el.querySelector('.pdf-btn').addEventListener('click', () => printPDF(rec));
+    el.querySelector('.del-btn').addEventListener('click', function() { handleDelete(rec, this); });
+  });
+  lucide.createIcons();
+}
+
+// Build payload helper
+function buildPayload(isDraft = false) {
+  const nilaiCapaianData = {};
+  for (let i = 1; i <= 19; i++) {
+    const n = document.querySelector(`.nilai-input[data-index="${i}"]`);
+    const c = document.querySelector(`.capaian-input[data-index="${i}"]`);
+    nilaiCapaianData[`nilai_${i}`] = (n && n.value) || '';
+    nilaiCapaianData[`capaian_${i}`] = (c && c.value) || '';
+  }
+  const ppiObj = {
+    ppi_karakteristik: (document.querySelector('.ppi-input[data-field="ppi_karakteristik"]')?.value) || '',
+    ppi_kekuatan: (document.querySelector('.ppi-input[data-field="ppi_kekuatan"]')?.value) || '',
+    ppi_hambatan: (document.querySelector('.ppi-input[data-field="ppi_hambatan"]')?.value) || '',
+    ppi_target: (document.querySelector('.ppi-input[data-field="ppi_target"]')?.value) || ''
+  };
+  const ppPrefixes = ['komunikasi','sosial','kemandirian','motorik','pengembangan'];
+  const perkembanganData = {};
+  for (let i = 1; i <= 5; i++) {
+    const prefix = ppPrefixes[i-1];
+    perkembanganData[`pp_${prefix}_awal`] = (document.querySelector(`.pp-awal-input[data-index="${i}"]`)?.value) || '';
+    perkembanganData[`pp_${prefix}_tengah`] = (document.querySelector(`.pp-tengah-input[data-index="${i}"]`)?.value) || '';
+    perkembanganData[`pp_${prefix}_akhir`] = (document.querySelector(`.pp-akhir-input[data-index="${i}"]`)?.value) || '';
+  }
+  const lkpData = {};
+  for (let i = 1; i <= 5; i++) {
+    const prefix = ppPrefixes[i-1];
+    lkpData[`lkp_${prefix}_target`] = (document.querySelector(`.lkp-target-input[data-index="${i}"]`)?.value) || '';
+    lkpData[`lkp_${prefix}_ketercapaian`] = (document.querySelector(`.lkp-ketercapaian-input[data-index="${i}"]`)?.value) || '';
+    lkpData[`lkp_${prefix}_deskripsi`] = (document.querySelector(`.lkp-deskripsi-input[data-index="${i}"]`)?.value) || '';
+  }
+  const ekstraData = {};
+  for (let i = 1; i <= 3; i++) {
+    ekstraData[`ekstrakurikuler_${i}`] = (document.querySelector(`.ekstrakurikuler-input[data-index="${i}"]`)?.value) || '';
+    ekstraData[`ekstrakurikuler_${i}_ket`] = (document.querySelector(`.ekstrakurikuler-ket-input[data-index="${i}"]`)?.value) || '';
+  }
+  const prestasiData = {};
+  for (let i = 1; i <= 3; i++) {
+    prestasiData[`prestasi_${i}`] = (document.querySelector(`.prestasi-input[data-index="${i}"]`)?.value) || '';
+    prestasiData[`prestasi_${i}_ket`] = (document.querySelector(`.prestasi-ket-input[data-index="${i}"]`)?.value) || '';
+  }
+  return {
+    nama_siswa: (document.getElementById('form-nama')?.value) || '',
+    nisn: (document.getElementById('form-nisn')?.value) || '',
+    kelas: (document.getElementById('form-kelas')?.value) || '',
+    semester: (document.getElementById('form-semester')?.value) || '',
+    tahun_pelajaran: '2025/2026',
+    is_draft: isDraft ? 'true' : 'false',
+    kelas_login: getKelasLogin(),
+    ketidakhadiran_sakit: (document.getElementById('ketidakhadiran-sakit')?.value) || '0',
+    ketidakhadiran_ijin: (document.getElementById('ketidakhadiran-ijin')?.value) || '0',
+    ketidakhadiran_tanpa: (document.getElementById('ketidakhadiran-tanpa')?.value) || '0',
+    catatan_wali_kelas: (document.getElementById('catatan-wali')?.value) || '',
+    naik_ke_kelas: (document.getElementById('naik-ke-kelas')?.value) || '',
+    tinggal_di_kelas: (document.getElementById('tinggal-di-kelas')?.value) || '',
+    status_kelulusan: (document.getElementById('status-kelulusan')?.value) || '',
+    nama_guru_pengampu: (document.getElementById('guru-nama')?.value) || '',
+    nip_guru_pengampu: (document.getElementById('guru-nip')?.value) || '',
+    nama_wali_kelas: (document.getElementById('wali-nama')?.value) || '',
+    nip_wali_kelas: (document.getElementById('wali-nip')?.value) || '',
+    nama_orangtua: (document.getElementById('orangtua-nama')?.value) || '',
+    nama_kepala_sekolah: (document.getElementById('kepala-nama')?.value) || 'Dr. DINI HANDAYANI, M. Pd.',
+    nip_kepala_sekolah: (document.getElementById('kepala-nip')?.value) || 'NIP. 198312082011012003',
+    ppi_data: JSON.stringify(ppiObj),
+    nilai_capaian_data: JSON.stringify(nilaiCapaianData),
+    perkembangan_data: JSON.stringify(perkembanganData),
+    lkp_data: JSON.stringify(lkpData),
+    ekstrakurikuler_data: JSON.stringify(ekstraData),
+    prestasi_data: JSON.stringify(prestasiData),
+    created_at: new Date().toISOString()
+  };
+}
+
+// Universal save handler
+async function handleSaveData(evt) {
+  const btn = evt.target.closest('button');
+  const payload = buildPayload(false);
+  const nama = payload.nama_siswa.trim();
+  const nisn = payload.nisn.trim();
+  const kelas = payload.kelas.trim();
+  const semester = payload.semester.trim();
+  if (!nama || !nisn || !kelas || !semester) { showFormMsg('Isi minimal Nama, NISN, Kelas, dan Semester.', true); return; }
+  if (!sdkReady) { showFormMsg('Sistem data belum siap.', true); return; }
+  if (!currentEditingRecord && !currentEditingDraft && (allRecords.length + allDrafts.length) >= 999) { showFormMsg('Batas 999 data tercapai.', true); return; }
+  
+  btn.disabled = true;
+  btn.innerHTML = '<i data-lucide="check-circle" style="width:20px;height:20px;"></i> <span>Menyimpan...</span>';
+  
+  try {
+    let result;
+    if (currentEditingRecord) {
+      result = await window.dataSdk.update({ ...currentEditingRecord, ...payload });
+    } else {
+      result = await window.dataSdk.create(payload);
+      if (result.isOk && currentEditingDraft) {
+        await window.dataSdk.delete(currentEditingDraft);
+      }
+    }
+    if (result.isOk) { showToast('✅ Data berhasil disimpan!'); clearForm(); }
+    else showFormMsg('❌ ' + (result.error?.message || 'Gagal menyimpan'), true);
+  } catch (err) { showFormMsg('❌ ' + err.message, true); }
+  finally { btn.disabled = false; btn.innerHTML = '<i data-lucide="check-circle" style="width:20px;height:20px;"></i> <span>Simpan Data</span>'; lucide.createIcons(); }
+}
+
+// Universal draft handler
+async function handleSaveDraft(evt) {
+  const btn = evt.target.closest('button');
+  const payload = buildPayload(true);
+  const nama = payload.nama_siswa.trim();
+  const nisn = payload.nisn.trim();
+  if (!nama || !nisn) { showFormMsg('Isi minimal Nama dan NISN.', true); return; }
+  if (!sdkReady) { showFormMsg('Sistem data belum siap.', true); return; }
+  if (!currentEditingDraft && (allRecords.length + allDrafts.length) >= 999) { showFormMsg('Batas 999 data tercapai.', true); return; }
+  
+  btn.disabled = true;
+  btn.innerHTML = '<i data-lucide="save" style="width:20px;height:20px;"></i> <span>Menyimpan...</span>';
+  
+  try {
+    let result;
+    if (currentEditingDraft) {
+      result = await window.dataSdk.update({ ...currentEditingDraft, ...payload });
+    } else {
+      result = await window.dataSdk.create(payload);
+    }
+    if (result.isOk) { showToast('✅ Draft disimpan!'); clearForm(); }
+    else showFormMsg('❌ ' + (result.error?.message || 'Gagal menyimpan draft'), true);
+  } catch (err) { showFormMsg('❌ ' + err.message, true); }
+  finally { btn.disabled = false; btn.innerHTML = '<i data-lucide="save" style="width:20px;height:20px;"></i> <span>Simpan Draft</span>'; lucide.createIcons(); }
+}
+
+// Attach all save buttons
+document.getElementById('submit-btn').addEventListener('click', handleSaveData);
+document.getElementById('draft-btn').addEventListener('click', handleSaveDraft);
+document.getElementById('akademik-submit-btn').addEventListener('click', handleSaveData);
+document.getElementById('akademik-draft-btn').addEventListener('click', handleSaveDraft);
+
+
+function renderDrafts() {
+  const container = document.getElementById('drafts-container');
+  const filtered = allDrafts.filter(r => {
+    const kl = (r.kelas_login || '').toUpperCase();
+    if (activeTab === 'akademik') return kl.includes('AKADEMIK');
+    if (activeTab === 'adl') return kl.includes('ADL');
+    return kl.includes('REHAB');
+  });
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="text-center py-8"><i data-lucide="file-text" style="width:48px;height:48px;color:#cbd5e1;margin:0 auto 12px;" class="block"></i><p class="text-[#4a6d8c] text-sm">Belum ada draft tersimpan.</p></div>';
+    lucide.createIcons();
+    return;
+  }
+  container.innerHTML = '';
+  filtered.forEach((draft, idx) => {
+    const colors = ['#fef3c7','#dbeafe','#dcfce7','#fce7f3','#f3e8ff'];
+    const colorMap = {0:'#d97706',1:'#0284c7',2:'#059669',3:'#be185d',4:'#7c3aed'};
+    const bgColor = colors[idx % 5];
+    const color = colorMap[idx % 5];
+    const el = document.createElement('div');
+    el.className = 'p-5 rounded-xl flex items-center justify-between border-l-4 shadow-sm hover:shadow-md transition';
+    el.style.backgroundColor = bgColor;
+    el.style.borderLeftColor = color;
+    el.innerHTML = `<div class="flex-1"><div class="flex items-center gap-3 mb-2"><i data-lucide="file-edit" style="width:20px;height:20px;color:${color};"></i><p class="font-bold text-[#1a3a5c]">${draft.nama_siswa||'-'}</p><span class="text-xs px-2 py-1 rounded-full" style="background:${color}20;color:${color};font-weight:600;">DRAFT</span></div><p class="text-xs text-[#4a6d8c] ml-7">NISN: <span class="font-semibold">${draft.nisn||'-'}</span> • Kelas: <span class="font-semibold">${draft.kelas||'-'}</span></p></div><div class="flex gap-2 flex-shrink-0"><button type="button" class="edit-btn p-2 rounded-lg transition hover:scale-110" style="background:rgba(217,119,6,0.15);color:${color};" title="Edit"><i data-lucide="pencil" style="width:18px;height:18px;"></i></button><button type="button" class="del-btn p-2 rounded-lg transition hover:scale-110" style="background:#fecaca;color:#991b1b;" title="Hapus"><i data-lucide="trash-2" style="width:18px;height:18px;"></i></button></div>`;
+    container.appendChild(el);
+    el.querySelector('.edit-btn').addEventListener('click', () => { loadDataToForm(draft); currentEditingDraft = draft; currentEditingRecord = null; showToast('✏️ Draft dimuat untuk diedit'); window.scrollTo(0,0); });
+    el.querySelector('.del-btn').addEventListener('click', function() { handleDelete(draft, this); });
+  });
+  lucide.createIcons();
+}
+
+async function handleDelete(rec, btn) {
+  if (btn.dataset.confirm === 'true') {
+    btn.disabled = true;
+    const result = await window.dataSdk.delete(rec);
+    if (!result.isOk) showToast('Gagal menghapus', true);
+    btn.disabled = false;
+    btn.dataset.confirm = 'false';
+  } else {
+    btn.dataset.confirm = 'true';
+    btn.innerHTML = '⚠️ Hapus?';
+    setTimeout(() => { btn.dataset.confirm = 'false'; btn.innerHTML = '<i data-lucide="trash-2" style="width:18px;height:18px;"></i>'; lucide.createIcons(); }, 3000);
+  }
+}
+
+function generatePDFHTML(rec) {
+  const isREHAB = (rec.kelas_login||'').toUpperCase().includes('REHAB');
+  const isADL = (rec.kelas_login||'').toUpperCase().includes('ADL');
+  const pdfSubjects = isADL ? SUBJECTS_ADL : SUBJECTS;
+  const thStyle = "background:#1a3a5c;color:#fff;padding:12px;text-align:center;font-weight:bold;border:1px solid #1a3a5c;print-color-adjust:exact;-webkit-print-color-adjust:exact;";
+  const sigTableThStyle = "background:transparent;color:#000;padding:12px;text-align:center;font-weight:bold;border:none;font-size:14px;";
+
+  let nilaiCapaianData={},ppiData={},perkembanganData={},lkpData={},ekstraData={},prestasiData={};
+  try{if(rec.nilai_capaian_data)nilaiCapaianData=JSON.parse(rec.nilai_capaian_data);}catch(e){}
+  try{if(rec.ppi_data)ppiData=JSON.parse(rec.ppi_data);}catch(e){}
+  try{if(rec.perkembangan_data)perkembanganData=JSON.parse(rec.perkembangan_data);}catch(e){}
+  try{if(rec.lkp_data)lkpData=JSON.parse(rec.lkp_data);}catch(e){}
+  try{if(rec.ekstrakurikuler_data)ekstraData=JSON.parse(rec.ekstrakurikuler_data);}catch(e){}
+  try{if(rec.prestasi_data)prestasiData=JSON.parse(rec.prestasi_data);}catch(e){}
+
+  let nilaiRows='';
+  pdfSubjects.forEach((subj,i)=>{const idx=i+1;if(subj==='KETERAMPILAN PILIHAN'||subj==='PROGRAM KHUSUS'){nilaiRows+=`<tr style="background:#e8f0f8;"><td colspan="3" style="border:1px solid #1a3a5c;padding:10px;font-weight:bold;text-align:center;">${subj}</td></tr>`;}else{nilaiRows+=`<tr><td style="border:1px solid #1a3a5c;padding:10px;">${subj}</td><td style="border:1px solid #1a3a5c;padding:10px;text-align:center;">${nilaiCapaianData[`nilai_${idx}`]||'-'}</td><td style="border:1px solid #1a3a5c;padding:10px;">${nilaiCapaianData[`capaian_${idx}`]||'-'}</td></tr>`;}});
+
+  let ekRows='',prRows='';
+  for(let i=1;i<=3;i++){if(ekstraData[`ekstrakurikuler_${i}`])ekRows+=`<tr><td style="border:1px solid #1a3a5c;padding:10px;">${ekstraData[`ekstrakurikuler_${i}`]}</td><td style="border:1px solid #1a3a5c;padding:10px;">${ekstraData[`ekstrakurikuler_${i}_ket`]||'-'}</td></tr>`;}
+  for(let i=1;i<=3;i++){if(prestasiData[`prestasi_${i}`])prRows+=`<tr><td style="border:1px solid #1a3a5c;padding:10px;">${prestasiData[`prestasi_${i}`]}</td><td style="border:1px solid #1a3a5c;padding:10px;">${prestasiData[`prestasi_${i}_ket`]||'-'}</td></tr>`;}
+
+  const lkpPrefixes=['komunikasi','sosial','kemandirian','motorik','pengembangan'];
+  const lkpLabels=['Komunikasi','Sosial Interaksi','Kemandirian','Motorik','Pengembangan Diri'];
+  let lkpRows='';
+  lkpLabels.forEach((aspek,i)=>{const p=lkpPrefixes[i];lkpRows+=`<tr><td style="border:1px solid #1a3a5c;padding:10px;font-weight:bold;">${aspek}</td><td style="border:1px solid #1a3a5c;padding:10px;">${lkpData[`lkp_${p}_target`]||'-'}</td><td style="border:1px solid #1a3a5c;padding:10px;">${lkpData[`lkp_${p}_ketercapaian`]||'-'}</td><td style="border:1px solid #1a3a5c;padding:10px;">${lkpData[`lkp_${p}_deskripsi`]||'-'}</td></tr>`;});
+  let ppRows='';
+  lkpLabels.forEach((aspek,i)=>{const p=lkpPrefixes[i];ppRows+=`<tr><td style="border:1px solid #1a3a5c;padding:10px;font-weight:bold;">${aspek}</td><td style="border:1px solid #1a3a5c;padding:10px;">${perkembanganData[`pp_${p}_awal`]||'-'}</td><td style="border:1px solid #1a3a5c;padding:10px;">${perkembanganData[`pp_${p}_tengah`]||'-'}</td><td style="border:1px solid #1a3a5c;padding:10px;">${perkembanganData[`pp_${p}_akhir`]||'-'}</td></tr>`;});
+
+  const graduationNumbers=['6','9','12','VI','IX','XII'];
+  let isGrad=false;
+  for(const num of graduationNumbers){if((rec.kelas||'').toLowerCase().includes(num.toLowerCase())){isGrad=true;break;}}
+
+  let pdfContent=`<h1>LAPORAN HASIL BELAJAR SISWA</h1><h2>SLB NEGERI HANDAYANI</h2><h3>Tahun Ajaran 2025/2026</h3><hr style="border:2px solid #1a3a5c;margin:12px 0 20px;"><table style="border:none;"><tr><td style="border:none;font-weight:bold;width:20%;">Nama Siswa</td><td style="border:none;width:2%;">:</td><td style="border:none;">${rec.nama_siswa||'-'}</td><td style="border:none;width:5%;"></td><td style="border:none;font-weight:bold;width:15%;">NISN</td><td style="border:none;width:2%;">:</td><td style="border:none;">${rec.nisn||'-'}</td></tr><tr><td style="border:none;font-weight:bold;">Kelas</td><td style="border:none;">:</td><td style="border:none;">${rec.kelas||'-'}</td><td style="border:none;"></td><td style="border:none;font-weight:bold;">Semester</td><td style="border:none;">:</td><td style="border:none;">${rec.semester||'-'}</td></tr></table>`;
+
+  if(isREHAB){
+    pdfContent+=`<h4>A. DESKRIPSI PROGRAM PEMBELAJARAN INDIVIDUAL</h4><table><thead><tr><th style="${thStyle}">ASPEK</th><th style="${thStyle}">DESKRIPSI</th></tr></thead><tbody><tr><td style="font-weight:bold;text-align:left;">Karakteristik</td><td style="text-align:left;white-space:pre-wrap;">${ppiData.ppi_karakteristik||'-'}</td></tr><tr><td style="font-weight:bold;text-align:left;">Kekuatan/Potensi</td><td style="text-align:left;white-space:pre-wrap;">${ppiData.ppi_kekuatan||'-'}</td></tr><tr><td style="font-weight:bold;text-align:left;">Hambatan/Kebutuhan</td><td style="text-align:left;white-space:pre-wrap;">${ppiData.ppi_hambatan||'-'}</td></tr><tr><td style="font-weight:bold;text-align:left;">Target Pembelajaran</td><td style="text-align:left;white-space:pre-wrap;">${ppiData.ppi_target||'-'}</td></tr></tbody></table>`;
+    pdfContent+=`<h4>B. LAPORAN KETERCAPAIAN PEMBELAJARAN</h4><table><thead><tr><th style="${thStyle}">ASPEK</th><th style="${thStyle}">TARGET</th><th style="${thStyle}">KETERCAPAIAN</th><th style="${thStyle}">DESKRIPSI</th></tr></thead><tbody>${lkpRows}</tbody></table>`;
+    pdfContent+=`<h4>C. PERKEMBANGAN PEMBELAJARAN</h4><table><thead><tr><th style="${thStyle}">ASPEK</th><th style="${thStyle}">AWAL</th><th style="${thStyle}">TENGAH</th><th style="${thStyle}">AKHIR</th></tr></thead><tbody>${ppRows}</tbody></table>`;
+    pdfContent+=`<h4>D. KETIDAKHADIRAN</h4><p>Sakit: ${rec.ketidakhadiran_sakit||'0'} hari | Ijin: ${rec.ketidakhadiran_ijin||'0'} hari | Tanpa Keterangan: ${rec.ketidakhadiran_tanpa||'0'} hari</p>`;
+    pdfContent+=`<h4>E. CATATAN WALI KELAS</h4><div style="border:1px solid #1a3a5c;padding:10px;min-height:60px;white-space:pre-wrap;">${rec.catatan_wali_kelas||'-'}</div>`;
+    pdfContent+=`<h4>F. KETERANGAN KELULUSAN</h4><div>${isGrad?`<p>Status Kelulusan: ${rec.status_kelulusan||'-'}</p>`:`<p>Naik ke Kelas: ${rec.naik_ke_kelas||'-'}</p><p>Tinggal di Kelas: ${rec.tinggal_di_kelas||'-'}</p>`}</div>`;
+  } else {
+    pdfContent+=`<h4>A. NILAI DAN CAPAIAN KOMPETENSI</h4><table><thead><tr><th style="${thStyle}">MATA PELAJARAN</th><th style="${thStyle}">NILAI AKHIR</th><th style="${thStyle}">CAPAIAN KOMPETENSI</th></tr></thead><tbody>${nilaiRows}</tbody></table>`;
+    pdfContent+=`<h4>B. EKSTRAKURIKULER</h4><table><thead><tr><th style="${thStyle}">KEGIATAN</th><th style="${thStyle}">KETERANGAN</th></tr></thead><tbody>${ekRows||'<tr><td colspan="2" style="text-align:center;border:1px solid #1a3a5c;padding:10px;">-</td></tr>'}</tbody></table>`;
+    pdfContent+=`<h4>C. PRESTASI</h4><table><thead><tr><th style="${thStyle}">JENIS</th><th style="${thStyle}">KETERANGAN</th></tr></thead><tbody>${prRows||'<tr><td colspan="2" style="text-align:center;border:1px solid #1a3a5c;padding:10px;">-</td></tr>'}</tbody></table>`;
+    pdfContent+=`<h4>D. KETIDAKHADIRAN</h4><p>Sakit: ${rec.ketidakhadiran_sakit||'0'} hari | Ijin: ${rec.ketidakhadiran_ijin||'0'} hari | Tanpa Keterangan: ${rec.ketidakhadiran_tanpa||'0'} hari</p>`;
+    pdfContent+=`<h4>E. CATATAN WALI KELAS</h4><div style="border:1px solid #1a3a5c;padding:10px;min-height:60px;white-space:pre-wrap;">${rec.catatan_wali_kelas||'-'}</div>`;
+    pdfContent+=`<h4>F. KETERANGAN KELULUSAN</h4><div>${isGrad?`<p>Status Kelulusan: ${rec.status_kelulusan||'-'}</p>`:`<p>Naik ke Kelas: ${rec.naik_ke_kelas||'-'}</p><p>Tinggal di Kelas: ${rec.tinggal_di_kelas||'-'}</p>`}</div>`;
+  }
+
+  pdfContent+=`<table class="sig-table"><thead><tr><td style="height:20px;"></td><td style="height:20px;text-align:center;padding-top:5px;font-size:14px;">Sukabumi, 24 Juni 2026</td><td style="height:20px;"></td></tr><tr><th style="${sigTableThStyle}">ORANGTUA/WALI</th><th style="${sigTableThStyle}">GURU PENGAMPU</th><th style="${sigTableThStyle}">WALI KELAS</th></tr></thead><tbody><tr><td style="height:60px;"></td><td style="height:60px;"></td><td style="height:60px;"></td></tr><tr><td>${rec.nama_orangtua||''}</td><td><u><b>${rec.nama_guru_pengampu||''}</b></u><br>${rec.nip_guru_pengampu||''}</td><td><u><b>${rec.nama_wali_kelas||''}</b></u><br>${rec.nip_wali_kelas||''}</td></tr><tr><td></td><td style="padding-top:40px;"><p>Mengetahui,<br>Kepala SLB Negeri Handayani</p><div style="height:80px;"></div><u><b>${rec.nama_kepala_sekolah||'Dr. DINI HANDAYANI, M. Pd.'}</b></u><br>${rec.nip_kepala_sekolah||'NIP. 198312082011012003'}</td><td></td></tr></tbody></table>`;
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rapor ${rec.nama_siswa}</title><style>@page{size:A4;margin:10mm;}body{font-family:'Times New Roman',serif;margin:0;padding:15mm;color:#000;line-height:1.4;}h1{text-align:center;font-size:28px;font-weight:bold;color:#1a3a5c;margin:0 0 8px;}h2{text-align:center;font-size:18px;font-weight:bold;color:#1a3a5c;margin:8px 0;}h3{text-align:center;font-size:16px;font-weight:bold;margin:8px 0;}h4{font-size:14px;margin:20px 0 12px;font-weight:bold;}table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:14px;}th{${thStyle}}td{border:1px solid #1a3a5c;padding:10px;}.sig-table th,.sig-table td{border:none;text-align:center;vertical-align:top;padding:10px;}</style></head><body>${pdfContent}<footer style="margin-top:40px;text-align:center;font-size:12px;color:#666;border-top:1px solid #ccc;padding-top:20px;">© 2026 SLB Negeri Handayani.</footer></body></html>`;
+}
+
+function printPDF(rec) {
+  const w = window.open('', '_blank', 'width=900,height=1200');
+  w.document.write(generatePDFHTML(rec));
+  w.document.close();
+  setTimeout(() => w.print(), 500);
+}
+
+function downloadPDF(rec) {
+  const html = generatePDFHTML(rec);
+  const filename = `Rapor_${(rec.nama_siswa||'siswa').replace(/\s+/g,'_')}.html`;
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50';
+  modal.style.backdropFilter = 'blur(4px)';
+  modal.innerHTML = `<div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6"><div class="text-center mb-6"><h2 class="text-xl font-bold text-[#1a3a5c] mb-2">📥 Pilih Format</h2><p class="text-sm text-[#4a6d8c]">Pilih cara untuk menyimpan rapor</p></div><div class="space-y-3"><button id="dl-html" type="button" class="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"><i data-lucide="file" style="width:18px;height:18px;"></i> Simpan HTML</button><button id="dl-pdf" type="button" class="w-full py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"><i data-lucide="file-pdf" style="width:18px;height:18px;"></i> Buka sebagai PDF</button><button id="dl-print" type="button" class="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"><i data-lucide="printer" style="width:18px;height:18px;"></i> Cetak Langsung</button><button id="dl-cancel" type="button" class="w-full py-3 bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold rounded-lg">Batal</button></div></div>`;
+  document.body.appendChild(modal);
+  modal.querySelector('#dl-html').addEventListener('click', () => {
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url); modal.remove(); showToast('✅ File HTML berhasil diunduh!');
+  });
+  modal.querySelector('#dl-pdf').addEventListener('click', () => {
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    modal.remove();
+    showToast('📄 File PDF dibuka di tab baru');
+  });
+  modal.querySelector('#dl-print').addEventListener('click', () => { printPDF(rec); modal.remove(); });
+  modal.querySelector('#dl-cancel').addEventListener('click', () => modal.remove());
+  lucide.createIcons();
+}
+
+function showPreviewModal(rec) {
+  const isREHAB = (rec.kelas_login||'').toUpperCase().includes('REHAB');
+  const isADL = (rec.kelas_login||'').toUpperCase().includes('ADL');
+  const previewSubjects = isADL ? SUBJECTS_ADL : SUBJECTS;
+
+  let nilaiCapaianData={},ppiData={},perkembanganData={},lkpData={},ekstraData={},prestasiData={};
+  try{if(rec.nilai_capaian_data)nilaiCapaianData=JSON.parse(rec.nilai_capaian_data);}catch(e){}
+  try{if(rec.ppi_data)ppiData=JSON.parse(rec.ppi_data);}catch(e){}
+  try{if(rec.perkembangan_data)perkembanganData=JSON.parse(rec.perkembangan_data);}catch(e){}
+  try{if(rec.lkp_data)lkpData=JSON.parse(rec.lkp_data);}catch(e){}
+  try{if(rec.ekstrakurikuler_data)ekstraData=JSON.parse(rec.ekstrakurikuler_data);}catch(e){}
+  try{if(rec.prestasi_data)prestasiData=JSON.parse(rec.prestasi_data);}catch(e){}
+
+  let nilaiRows='';
+  previewSubjects.forEach((subj,i)=>{const idx=i+1;if(subj==='KETERAMPILAN PILIHAN'||subj==='PROGRAM KHUSUS'){nilaiRows+=`<tr class="bg-[#e8f0f8]"><td colspan="3" class="border border-[#e2e8f0] px-4 py-3 font-semibold text-center">${subj}</td></tr>`;}else{nilaiRows+=`<tr><td class="border border-[#e2e8f0] px-4 py-2">${subj}</td><td class="border border-[#e2e8f0] px-3 py-2 text-center">${nilaiCapaianData[`nilai_${idx}`]||'-'}</td><td class="border border-[#e2e8f0] px-3 py-2">${nilaiCapaianData[`capaian_${idx}`]||'-'}</td></tr>`;}});
+
+  let ekRows='',prRows='';
+  for(let i=1;i<=3;i++){if(ekstraData[`ekstrakurikuler_${i}`])ekRows+=`<tr><td class="border border-[#e2e8f0] px-4 py-2">${ekstraData[`ekstrakurikuler_${i}`]}</td><td class="border border-[#e2e8f0] px-4 py-2">${ekstraData[`ekstrakurikuler_${i}_ket`]||'-'}</td></tr>`;}
+  for(let i=1;i<=3;i++){if(prestasiData[`prestasi_${i}`])prRows+=`<tr><td class="border border-[#e2e8f0] px-4 py-2">${prestasiData[`prestasi_${i}`]}</td><td class="border border-[#e2e8f0] px-4 py-2">${prestasiData[`prestasi_${i}_ket`]||'-'}</td></tr>`;}
+
+  const lkpPrefixes=['komunikasi','sosial','kemandirian','motorik','pengembangan'];
+  const lkpLabels=['Komunikasi','Sosial Interaksi','Kemandirian','Motorik','Pengembangan Diri'];
+  let lkpPreviewRows='';
+  lkpLabels.forEach((aspek,i)=>{const p=lkpPrefixes[i];lkpPreviewRows+=`<tr><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">${aspek}</td><td class="border border-[#e2e8f0] px-3 py-2">${lkpData[`lkp_${p}_target`]||'-'}</td><td class="border border-[#e2e8f0] px-3 py-2">${lkpData[`lkp_${p}_ketercapaian`]||'-'}</td><td class="border border-[#e2e8f0] px-3 py-2">${lkpData[`lkp_${p}_deskripsi`]||'-'}</td></tr>`;});
+  let ppPreviewRows='';
+  lkpLabels.forEach((aspek,i)=>{const p=lkpPrefixes[i];ppPreviewRows+=`<tr><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">${aspek}</td><td class="border border-[#e2e8f0] px-3 py-2">${perkembanganData[`pp_${p}_awal`]||'-'}</td><td class="border border-[#e2e8f0] px-3 py-2">${perkembanganData[`pp_${p}_tengah`]||'-'}</td><td class="border border-[#e2e8f0] px-3 py-2">${perkembanganData[`pp_${p}_akhir`]||'-'}</td></tr>`;});
+
+  const graduationNumbers=['6','9','12','VI','IX','XII'];
+  let isGrad=false;
+  for(const num of graduationNumbers){if((rec.kelas||'').toLowerCase().includes(num.toLowerCase())){isGrad=true;break;}}
+
+  let html=`<h3 class="text-xl font-bold text-center mb-1">LAPORAN HASIL BELAJAR SISWA</h3><p class="text-center text-sm font-semibold mb-4 pb-3 border-b border-[#e2e8f0]">SLB NEGERI HANDAYANI — Tahun Ajaran ${rec.tahun_pelajaran||'-'}</p><div class="grid grid-cols-2 gap-2 text-sm mb-4"><p><b>Nama:</b> ${rec.nama_siswa||'-'}</p><p><b>NISN:</b> ${rec.nisn||'-'}</p><p><b>Kelas:</b> ${rec.kelas||'-'}</p><p><b>Semester:</b> ${rec.semester||'-'}</p></div>`;
+
+  if(isREHAB){
+    html+=`<h4 class="font-bold mt-4 mb-2">A. DESKRIPSI PROGRAM PEMBELAJARAN INDIVIDUAL</h4><table class="w-full border-collapse text-sm"><thead><tr class="bg-[#1a3a5c] text-white"><th class="border border-[#1a3a5c] px-3 py-2">Aspek</th><th class="border border-[#1a3a5c] px-3 py-2">Deskripsi</th></tr></thead><tbody><tr><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">Karakteristik</td><td class="border border-[#e2e8f0] px-4 py-2 whitespace-pre-wrap">${ppiData.ppi_karakteristik||'-'}</td></tr><tr><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">Kekuatan/Potensi</td><td class="border border-[#e2e8f0] px-4 py-2 whitespace-pre-wrap">${ppiData.ppi_kekuatan||'-'}</td></tr><tr><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">Hambatan/Kebutuhan</td><td class="border border-[#e2e8f0] px-4 py-2 whitespace-pre-wrap">${ppiData.ppi_hambatan||'-'}</td></tr><tr><td class="border border-[#e2e8f0] px-4 py-2 font-semibold">Target Pembelajaran</td><td class="border border-[#e2e8f0] px-4 py-2 whitespace-pre-wrap">${ppiData.ppi_target||'-'}</td></tr></tbody></table>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">B. LAPORAN KETERCAPAIAN PEMBELAJARAN</h4><table class="w-full border-collapse text-sm"><thead><tr class="bg-[#1a3a5c] text-white"><th class="border border-[#1a3a5c] px-3 py-2">Aspek</th><th class="border border-[#1a3a5c] px-3 py-2">Target</th><th class="border border-[#1a3a5c] px-3 py-2">Ketercapaian</th><th class="border border-[#1a3a5c] px-3 py-2">Deskripsi</th></tr></thead><tbody>${lkpPreviewRows}</tbody></table>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">C. PERKEMBANGAN PEMBELAJARAN</h4><table class="w-full border-collapse text-sm"><thead><tr class="bg-[#1a3a5c] text-white"><th class="border border-[#1a3a5c] px-3 py-2">Aspek</th><th class="border border-[#1a3a5c] px-3 py-2">Awal</th><th class="border border-[#1a3a5c] px-3 py-2">Tengah</th><th class="border border-[#1a3a5c] px-3 py-2">Akhir</th></tr></thead><tbody>${ppPreviewRows}</tbody></table>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">D. KETIDAKHADIRAN</h4><p class="text-sm">Sakit: ${rec.ketidakhadiran_sakit||'0'} | Ijin: ${rec.ketidakhadiran_ijin||'0'} | Tanpa Ket: ${rec.ketidakhadiran_tanpa||'0'}</p>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">E. CATATAN WALI KELAS</h4><div class="border p-3 rounded text-sm min-h-[40px] whitespace-pre-wrap">${rec.catatan_wali_kelas||'-'}</div>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">F. KETERANGAN KELULUSAN</h4><div class="text-sm">${isGrad?`Status: ${rec.status_kelulusan||'-'}`:`Naik ke Kelas: ${rec.naik_ke_kelas||'-'} | Tinggal: ${rec.tinggal_di_kelas||'-'}`}</div>`;
+  } else {
+    html+=`<h4 class="font-bold mt-4 mb-2">A. NILAI DAN CAPAIAN KOMPETENSI</h4><table class="w-full border-collapse text-sm"><thead><tr class="bg-[#1a3a5c] text-white"><th class="border border-[#1a3a5c] px-3 py-2">Mata Pelajaran</th><th class="border border-[#1a3a5c] px-3 py-2">Nilai</th><th class="border border-[#1a3a5c] px-3 py-2">Capaian</th></tr></thead><tbody>${nilaiRows}</tbody></table>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">B. EKSTRAKURIKULER</h4><table class="w-full border-collapse text-sm"><thead><tr class="bg-[#1a3a5c] text-white"><th class="border border-[#1a3a5c] px-3 py-2">Kegiatan</th><th class="border border-[#1a3a5c] px-3 py-2">Keterangan</th></tr></thead><tbody>${ekRows||'<tr><td colspan="2" class="text-center border border-[#e2e8f0] px-3 py-2">-</td></tr>'}</tbody></table>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">C. PRESTASI</h4><table class="w-full border-collapse text-sm"><thead><tr class="bg-[#1a3a5c] text-white"><th class="border border-[#1a3a5c] px-3 py-2">Jenis</th><th class="border border-[#1a3a5c] px-3 py-2">Keterangan</th></tr></thead><tbody>${prRows||'<tr><td colspan="2" class="text-center border border-[#e2e8f0] px-3 py-2">-</td></tr>'}</tbody></table>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">D. KETIDAKHADIRAN</h4><p class="text-sm">Sakit: ${rec.ketidakhadiran_sakit||'0'} | Ijin: ${rec.ketidakhadiran_ijin||'0'} | Tanpa Ket: ${rec.ketidakhadiran_tanpa||'0'}</p>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">E. CATATAN WALI KELAS</h4><div class="border p-3 rounded text-sm min-h-[40px] whitespace-pre-wrap">${rec.catatan_wali_kelas||'-'}</div>`;
+    html+=`<h4 class="font-bold mt-4 mb-2">F. KETERANGAN KELULUSAN</h4><div class="text-sm">${isGrad?`Status: ${rec.status_kelulusan||'-'}`:`Naik ke Kelas: ${rec.naik_ke_kelas||'-'} | Tinggal: ${rec.tinggal_di_kelas||'-'}`}</div>`;
+  }
+
+  document.getElementById('preview-content').innerHTML = html;
+  document.getElementById('preview-modal').classList.remove('hidden');
+}
+
+document.getElementById('close-preview-modal').addEventListener('click', () => document.getElementById('preview-modal').classList.add('hidden'));
+document.getElementById('preview-modal').addEventListener('click', (e) => { if(e.target===document.getElementById('preview-modal')) document.getElementById('preview-modal').classList.add('hidden'); });
+
+// Login
+document.getElementById('login-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const nama = document.getElementById('login-nama').value.trim();
+  const nisn = document.getElementById('login-nisn').value.trim();
+  const valid = VALID_TEACHERS.some(u => u.nama.toLowerCase() === nama.toLowerCase() && u.nisn === nisn);
+  if (!valid) {
+    const err = document.getElementById('login-error');
+    err.textContent = '❌ Kombinasi Nama dan Kode Akses tidak cocok.';
+    err.classList.remove('hidden');
+    return;
+  }
+  document.getElementById('login-error').classList.add('hidden');
+  document.getElementById('login-page').style.display = 'none';
+  document.getElementById('main-page').classList.remove('hidden');
+  currentUser = { nama, nisn };
+  renderSubjectRows();
+  updateSectionVisibility();
+});
+
+
+
+// Print from form
+document.getElementById('print-btn').addEventListener('click', () => {
+  const nama = document.getElementById('form-nama').value.trim();
+  if (!nama) { showFormMsg('Isi minimal Nama Siswa.', true); return; }
+  saveFormToTab(activeTab);
+  const storage = tabFormStorage[activeTab];
+  const data = {
+    nama_siswa: storage.nama,
+    nisn: storage.nisn,
+    kelas: storage.kelas,
+    semester: storage.semester,
+    tahun_pelajaran: '2025/2026',
+    is_draft: 'false',
+    kelas_login: getKelasLogin(),
+    ...storage.data,
+    catatan_wali_kelas: storage.catatan,
+    created_at: new Date().toISOString()
+  };
+  
+  // If Akademik tab, print directly without showing modal
+  if (activeTab === 'akademik') {
+    printPDF(data);
+    return;
+  }
+  
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50';
+  modal.style.backdropFilter = 'blur(4px)';
+  modal.innerHTML = `<div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6"><div class="text-center mb-6"><h2 class="text-xl font-bold text-[#1a3a5c] mb-2">📄 Pilih Format</h2><p class="text-sm text-[#4a6d8c]">Pilih cara untuk simpan/cetak rapor</p></div><div class="space-y-3"><button id="form-dl-html" type="button" class="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"><i data-lucide="file" style="width:18px;height:18px;"></i> Simpan HTML</button><button id="form-dl-pdf" type="button" class="w-full py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"><i data-lucide="file-pdf" style="width:18px;height:18px;"></i> Buka sebagai PDF</button><button id="form-dl-print" type="button" class="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg flex items-center justify-center gap-2"><i data-lucide="printer" style="width:18px;height:18px;"></i> Cetak Langsung</button><button id="form-dl-cancel" type="button" class="w-full py-3 bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold rounded-lg">Batal</button></div></div>`;
+  document.body.appendChild(modal);
+  const html = generatePDFHTML(data);
+  const filename = `Rapor_${(data.nama_siswa||'siswa').replace(/\s+/g,'_')}.html`;
+  modal.querySelector('#form-dl-html').addEventListener('click', () => {
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+    URL.revokeObjectURL(url); modal.remove(); showToast('✅ File HTML berhasil diunduh!');
+  });
+  modal.querySelector('#form-dl-pdf').addEventListener('click', () => {
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    modal.remove();
+    showToast('📄 File PDF dibuka di tab baru');
+  });
+  modal.querySelector('#form-dl-print').addEventListener('click', () => { printPDF(data); modal.remove(); });
+  modal.querySelector('#form-dl-cancel').addEventListener('click', () => modal.remove());
+  lucide.createIcons();
+});
+
+// Logout
+function doLogout() {
+  document.getElementById('main-page').classList.add('hidden');
+  document.getElementById('login-page').style.display = 'flex';
+  currentUser = null;
+  clearForm();
+}
+document.getElementById('logout-btn').addEventListener('click', doLogout);
+document.getElementById('header-logout-btn').addEventListener('click', doLogout);
+
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a05a96b3a8a6ce82',t:'MTc4MDQ0NjYyMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
